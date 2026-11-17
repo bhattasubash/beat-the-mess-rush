@@ -1,0 +1,165 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Screen 1: Setup — Mess Meter</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script id="tailwind-config">tailwind.config = {
+  theme: {
+    extend: {
+      colors: {
+        primary: '#2563EB',
+        'on-primary': '#FFFFFF',
+        'wireframe-bg': '#F9FAFB',
+        'wireframe-surface': '#FFFFFF',
+        'wireframe-subtle': '#F3F4F6',
+        'wireframe-border': '#D1D5DB',
+        'wireframe-border-dark': '#9CA3AF',
+        'text-primary': '#111827',
+        'text-secondary': '#4B5563',
+        'text-muted': '#6B7280',
+        'accent-soft': '#EFF6FF',
+      },
+      fontFamily: {
+        headline: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
+        body: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
+      },
+      fontSize: {
+        'display-sm': ['28px', { lineHeight: '34px', fontWeight: '700' }],
+        'headline-lg': ['22px', { lineHeight: '28px', fontWeight: '600' }],
+        'headline-md': ['18px', { lineHeight: '24px', fontWeight: '600' }],
+        'body-lg': ['16px', { lineHeight: '24px', fontWeight: '500' }],
+        'body-md': ['16px', { lineHeight: '24px', fontWeight: '400' }],
+        'label-lg': ['16px', { lineHeight: '20px', fontWeight: '600' }],
+        'label-sm': ['13px', { lineHeight: '18px', fontWeight: '500' }],
+      },
+      minHeight: {
+        'touch': '48px',
+      },
+      minWidth: {
+        'touch': '48px',
+      }
+    },
+  },
+};
+</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=block" rel="stylesheet">
+  <style>
+    .material-symbols-outlined {
+      display: inline-block;
+      width: 1em;
+      height: 1em;
+      line-height: 1 !important;
+      overflow: hidden;
+      white-space: nowrap;
+      vertical-align: middle;
+    }
+  </style>
+</head>
+<body class="bg-wireframe-bg text-text-primary font-body min-h-[884px] antialiased flex flex-col justify-between" data-stitch-vh="min-h-[884px]===min-h-screen">
+  <!-- Mobile Frame Container -->
+  <div class="w-full max-w-[390px] mx-auto min-h-[884px] flex flex-col justify-between bg-wireframe-surface border-x border-wireframe-border shadow-sm" data-stitch-vh="min-h-[884px]===min-h-screen">
+    
+    <!-- Top System & Flow Bar -->
+    <header class="border-b border-wireframe-border px-5 pt-3 pb-3 bg-wireframe-subtle">
+      <div class="flex items-center justify-between text-text-muted text-label-sm mb-2">
+        <span class="font-semibold text-text-primary">9:41</span>
+        <div class="flex items-center gap-1.5 text-text-secondary text-sm">
+          <span class="material-symbols-outlined text-[16px]">signal_cellular_alt</span>
+          <span class="material-symbols-outlined text-[16px]">wifi</span>
+          <span class="material-symbols-outlined text-[16px]">battery_full</span>
+        </div>
+      </div>
+      <!-- Flow Step Header -->
+      <div class="flex items-center justify-between mt-1">
+        <div class="flex items-center gap-2">
+          <span class="px-2 py-0.5 bg-wireframe-border text-text-primary text-[11px] font-semibold uppercase tracking-wider rounded">Step 1 of 6</span>
+          <span class="text-text-muted text-label-sm font-medium">Onboarding</span>
+        </div>
+        <div class="flex items-center gap-1 text-primary text-label-sm font-semibold">
+          <span>Flow: 1 → 2</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="flex-1 px-6 py-8 flex flex-col justify-between">
+      <div>
+        <!-- Wireframe App Identity Placeholder -->
+        <div class="mb-6 flex items-center gap-3">
+          <div class="w-10 h-10 border-2 border-dashed border-wireframe-border-dark rounded-lg flex items-center justify-center bg-wireframe-subtle">
+            <span class="material-symbols-outlined text-text-secondary">restaurant</span>
+          </div>
+          <div>
+            <h2 class="text-headline-md font-headline font-semibold text-text-primary">Mess Meter</h2>
+            <p class="text-label-sm text-text-muted">Hostel dining &amp; crowd companion</p>
+          </div>
+        </div>
+
+        <!-- Wireframe Title -->
+        <div class="mb-8">
+          <h1 class="text-display-sm font-headline text-text-primary tracking-tight mb-2">Where do you eat?</h1>
+          <p class="text-body-md text-text-secondary">Set your hostel mess and daily class break to check rush times before walking over.</p>
+        </div>
+
+        <!-- Form Elements -->
+        <div class="space-y-6">
+          <!-- Dropdown: Select your mess -->
+          <div>
+            <label for="mess-select" class="block text-label-lg font-semibold text-text-primary mb-2">
+              Select your mess
+            </label>
+            <div class="relative">
+              <select id="mess-select" class="w-full min-h-touch px-4 py-3 bg-wireframe-surface border-2 border-wireframe-border rounded-lg text-body-lg text-text-primary focus:border-primary focus:ring-0 focus:outline-none appearance-none cursor-pointer">
+                <option value disabled selected>Choose your mess...</option>
+                <option value="hostel-7">Hostel 7 Dining Hall (Main)</option>
+                <option value="hostel-3">Hostel 3 South Mess</option>
+                <option value="hostel-12">Hostel 12 North Wing Mess</option>
+                <option value="central">Central Campus Dining</option>
+              </select>
+              <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-text-secondary">
+                <span class="material-symbols-outlined">expand_more</span>
+              </div>
+            </div>
+            <p class="mt-1.5 text-label-sm text-text-muted">You can change this mess anytime in settings or live view.</p>
+          </div>
+
+          <!-- Input: Usual class break time -->
+          <div>
+            <label for="break-time" class="block text-label-lg font-semibold text-text-primary mb-2">
+              Usual class break time (e.g. 12:30)
+            </label>
+            <div class="relative">
+              <input type="text" id="break-time" value="12:30" placeholder="e.g. 12:30" class="w-full min-h-touch px-4 py-3 bg-wireframe-surface border-2 border-wireframe-border rounded-lg text-body-lg text-text-primary focus:border-primary focus:ring-0 focus:outline-none">
+              <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-text-muted">
+                <span class="material-symbols-outlined">schedule</span>
+              </div>
+            </div>
+            <p class="mt-1.5 text-label-sm text-text-muted">Used to recommend quiet slots that match your timetable.</p>
+          </div>
+
+          <!-- Wireframe Note Box -->
+          <div class="p-3.5 bg-wireframe-subtle border border-wireframe-border rounded-lg flex items-start gap-2.5">
+            <span class="material-symbols-outlined text-text-secondary text-[20px] mt-0.5">info</span>
+            <p class="text-label-sm text-text-secondary">Grayscale wireframe preview. Tap targets are 48px+ for effortless one-handed use.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Action Footer -->
+      <div class="pt-6 mt-8 border-t border-wireframe-border">
+        <a href="../screen-2-now/Now.html" class="w-full min-h-touch px-6 py-3.5 bg-primary text-on-primary text-label-lg font-semibold rounded-lg flex items-center justify-center gap-2 hover:bg-blue-700 active:scale-[0.99] transition shadow-sm">
+          <span>Continue</span>
+          <span class="material-symbols-outlined text-[20px]">arrow_forward</span>
+        </a>
+        <div class="mt-3 text-center">
+          <span class="text-label-sm text-text-muted">Leads to Screen 2 (Now: Live Crowd Meter)</span>
+        </div>
+      </div>
+    </main>
+  </div>
+
+
+</body></html>

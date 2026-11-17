@@ -1,0 +1,208 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Screen 2: Now — Mess Meter</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script id="tailwind-config">tailwind.config = {
+  theme: {
+    extend: {
+      colors: {
+        primary: '#2563EB',
+        'on-primary': '#FFFFFF',
+        'wireframe-bg': '#F9FAFB',
+        'wireframe-surface': '#FFFFFF',
+        'wireframe-subtle': '#F3F4F6',
+        'wireframe-border': '#D1D5DB',
+        'wireframe-border-dark': '#9CA3AF',
+        'text-primary': '#111827',
+        'text-secondary': '#4B5563',
+        'text-muted': '#6B7280',
+        'accent-soft': '#EFF6FF',
+      },
+      fontFamily: {
+        headline: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
+        body: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
+      },
+      fontSize: {
+        'display-sm': ['28px', { lineHeight: '34px', fontWeight: '700' }],
+        'headline-lg': ['22px', { lineHeight: '28px', fontWeight: '600' }],
+        'headline-md': ['18px', { lineHeight: '24px', fontWeight: '600' }],
+        'body-lg': ['16px', { lineHeight: '24px', fontWeight: '500' }],
+        'body-md': ['16px', { lineHeight: '24px', fontWeight: '400' }],
+        'label-lg': ['16px', { lineHeight: '20px', fontWeight: '600' }],
+        'label-sm': ['13px', { lineHeight: '18px', fontWeight: '500' }],
+      },
+      minHeight: {
+        'touch': '48px',
+      },
+      minWidth: {
+        'touch': '48px',
+      }
+    },
+  },
+};
+</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=block" rel="stylesheet">
+  <style>
+    .material-symbols-outlined {
+      display: inline-block;
+      width: 1em;
+      height: 1em;
+      line-height: 1 !important;
+      overflow: hidden;
+      white-space: nowrap;
+      vertical-align: middle;
+    }
+  </style>
+</head>
+<body class="bg-wireframe-bg text-text-primary font-body min-h-[884px] antialiased flex flex-col justify-between" data-stitch-vh="min-h-[884px]===min-h-screen">
+  <!-- Mobile Frame Container -->
+  <div class="w-full max-w-[390px] mx-auto min-h-[884px] flex flex-col justify-between bg-wireframe-surface border-x border-wireframe-border shadow-sm" data-stitch-vh="min-h-[884px]===min-h-screen">
+    
+    <!-- Top System & Flow Bar -->
+    <header class="border-b border-wireframe-border px-5 pt-3 pb-3 bg-wireframe-subtle">
+      <div class="flex items-center justify-between text-text-muted text-label-sm mb-2">
+        <span class="font-semibold text-text-primary">9:41</span>
+        <div class="flex items-center gap-1.5 text-text-secondary text-sm">
+          <span class="material-symbols-outlined text-[16px]">signal_cellular_alt</span>
+          <span class="material-symbols-outlined text-[16px]">wifi</span>
+          <span class="material-symbols-outlined text-[16px]">battery_full</span>
+        </div>
+      </div>
+      <!-- Flow Step Header -->
+      <div class="flex items-center justify-between mt-1">
+        <div class="flex items-center gap-2">
+          <span class="px-2 py-0.5 bg-wireframe-border text-text-primary text-[11px] font-semibold uppercase tracking-wider rounded">Step 2 of 6</span>
+          <span class="text-text-muted text-label-sm font-medium">Live Status</span>
+        </div>
+        <div class="flex items-center gap-1 text-primary text-label-sm font-semibold">
+          <span>Flow: 1 → 2 → 3</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- App Header: Mess Name + Change Link -->
+    <div class="px-6 py-4 border-b border-wireframe-border bg-wireframe-surface flex items-center justify-between">
+      <div class="flex items-center gap-2">
+        <div class="w-8 h-8 rounded border border-wireframe-border bg-wireframe-subtle flex items-center justify-center">
+          <span class="material-symbols-outlined text-text-secondary text-[18px]">location_on</span>
+        </div>
+        <div>
+          <h1 class="text-headline-md font-headline font-semibold text-text-primary leading-tight">Hostel 7 Dining Hall</h1>
+          <p class="text-label-sm text-text-muted">Primary Mess</p>
+        </div>
+      </div>
+      <a href="../screen-1-setup/Setup.html" class="min-h-touch px-3 py-2 text-primary font-semibold text-label-lg hover:underline flex items-center justify-center rounded">
+        Change
+      </a>
+    </div>
+
+    <!-- Main Content Area -->
+    <main class="flex-1 px-6 py-6 flex flex-col justify-between">
+      <div>
+        <!-- Live Crowd Indicator Box -->
+        <div class="p-5 border-2 border-wireframe-border-dark rounded-xl bg-wireframe-surface shadow-sm mb-6">
+          <div class="flex items-center justify-between mb-4">
+            <span class="text-label-sm font-semibold text-text-secondary uppercase tracking-wider">Live Crowd Meter</span>
+            <div class="flex items-center gap-1.5 px-2.5 py-1 bg-wireframe-subtle border border-wireframe-border rounded-full text-label-sm text-text-secondary">
+              <span class="w-2 h-2 rounded-full bg-text-secondary animate-pulse"></span>
+              <span>Updated 2 min ago</span>
+            </div>
+          </div>
+
+          <!-- Crowd Level Written in Words -->
+          <div class="text-center my-2">
+            <span class="text-label-sm text-text-muted block mb-1">Current status</span>
+            <div class="text-display-sm font-headline text-text-primary uppercase tracking-wide">
+              Busy
+            </div>
+          </div>
+
+          <!-- Crowd Meter (3 Large Blocks: Calm, Busy, Packed) -->
+          <div class="grid grid-cols-3 gap-2.5 mt-5">
+            <!-- Calm Block -->
+            <div class="min-h-touch p-3 border-2 border-wireframe-border bg-wireframe-subtle rounded-lg flex flex-col items-center justify-center text-center">
+              <span class="text-label-lg font-medium text-text-muted">Calm</span>
+              <span class="text-[11px] text-text-muted mt-0.5">&lt; 5 min</span>
+            </div>
+
+            <!-- Busy Block (Highlighted in Grayscale wireframe style) -->
+            <div class="min-h-touch p-3 border-2 border-text-primary bg-text-primary text-white rounded-lg flex flex-col items-center justify-center text-center shadow">
+              <div class="flex items-center gap-1">
+                <span class="material-symbols-outlined text-[16px]">check_circle</span>
+                <span class="text-label-lg font-bold">Busy</span>
+              </div>
+              <span class="text-[11px] text-gray-200 mt-0.5">Current</span>
+            </div>
+
+            <!-- Packed Block -->
+            <div class="min-h-touch p-3 border-2 border-wireframe-border bg-wireframe-subtle rounded-lg flex flex-col items-center justify-center text-center">
+              <span class="text-label-lg font-medium text-text-muted">Packed</span>
+              <span class="text-[11px] text-text-muted mt-0.5">&gt; 15 min</span>
+            </div>
+          </div>
+
+          <!-- Estimated wait -->
+          <div class="mt-5 pt-4 border-t border-wireframe-border flex items-center justify-between">
+            <div class="flex items-center gap-2 text-text-secondary">
+              <span class="material-symbols-outlined text-[20px]">timer</span>
+              <span class="text-body-md font-medium">Estimated wait:</span>
+            </div>
+            <span class="text-headline-md font-bold text-text-primary font-headline">5 to 10 min</span>
+          </div>
+        </div>
+
+        <!-- Timetable context note -->
+        <div class="p-4 border border-wireframe-border bg-wireframe-subtle rounded-lg mb-4 flex items-center gap-3">
+          <span class="material-symbols-outlined text-text-secondary">alarm</span>
+          <div class="text-label-sm text-text-secondary">
+            Your class break starts at <span class="font-semibold text-text-primary">12:30</span>. Find a quieter eating window.
+          </div>
+        </div>
+      </div>
+
+      <!-- Primary Action: See best time -->
+      <div class="pt-4 mb-2">
+        <a href="../screen-3-best-time/BestTime.html" class="w-full min-h-touch px-6 py-3.5 bg-primary text-on-primary text-label-lg font-semibold rounded-lg flex items-center justify-center gap-2 hover:bg-blue-700 active:scale-[0.99] transition shadow-sm">
+          <span>See best time</span>
+          <span class="material-symbols-outlined text-[20px]">schedule</span>
+        </a>
+        <div class="mt-2 text-center">
+          <span class="text-label-sm text-text-muted">Next: Calmer times &amp; break match →</span>
+        </div>
+      </div>
+    </main>
+
+    <!-- Bottom Navigation (4 Tabs: Now, Best Time, Menu Vote, Feedback) -->
+    <nav class="border-t-2 border-wireframe-border bg-wireframe-surface px-2 py-1.5 grid grid-cols-4 gap-1">
+      <!-- Tab 1: Now (Active) -->
+      <a href="../screen-2-now/Now.html" class="min-h-touch flex flex-col items-center justify-center py-1 px-1 rounded bg-wireframe-subtle border border-wireframe-border text-text-primary">
+        <span class="material-symbols-outlined text-[22px]">speed</span>
+        <span class="text-[12px] font-bold mt-0.5">Now</span>
+      </a>
+
+      <!-- Tab 2: Best Time -->
+      <a href="../screen-3-best-time/BestTime.html" class="min-h-touch flex flex-col items-center justify-center py-1 px-1 rounded text-text-secondary hover:bg-wireframe-subtle">
+        <span class="material-symbols-outlined text-[22px]">schedule</span>
+        <span class="text-[12px] font-medium mt-0.5">Best Time</span>
+      </a>
+
+      <!-- Tab 3: Menu Vote -->
+      <a href="../screen-5-menu-vote/MenuVote.html" class="min-h-touch flex flex-col items-center justify-center py-1 px-1 rounded text-text-secondary hover:bg-wireframe-subtle">
+        <span class="material-symbols-outlined text-[22px]">how_to_vote</span>
+        <span class="text-[12px] font-medium mt-0.5">Menu Vote</span>
+      </a>
+
+      <!-- Tab 4: Feedback -->
+      <a href="../screen-6-feedback/Feedback.html" class="min-h-touch flex flex-col items-center justify-center py-1 px-1 rounded text-text-secondary hover:bg-wireframe-subtle">
+        <span class="material-symbols-outlined text-[22px]">rate_review</span>
+        <span class="text-[12px] font-medium mt-0.5">Feedback</span>
+      </a>
+    </nav>
+  </div>
+
+
+</body></html>

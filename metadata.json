@@ -1,0 +1,8 @@
+{
+  "name": "Mess Meter",
+  "description": "Hostel dining crowd tracker, calm eating slot planner, menu portion voting, and quick feedback companion.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

@@ -1,0 +1,214 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Screen 3: Best Time — Mess Meter</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script id="tailwind-config">tailwind.config = {
+  theme: {
+    extend: {
+      colors: {
+        primary: '#2563EB',
+        'on-primary': '#FFFFFF',
+        'wireframe-bg': '#F9FAFB',
+        'wireframe-surface': '#FFFFFF',
+        'wireframe-subtle': '#F3F4F6',
+        'wireframe-border': '#D1D5DB',
+        'wireframe-border-dark': '#9CA3AF',
+        'text-primary': '#111827',
+        'text-secondary': '#4B5563',
+        'text-muted': '#6B7280',
+        'accent-soft': '#EFF6FF',
+      },
+      fontFamily: {
+        headline: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
+        body: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
+      },
+      fontSize: {
+        'display-sm': ['28px', { lineHeight: '34px', fontWeight: '700' }],
+        'headline-lg': ['22px', { lineHeight: '28px', fontWeight: '600' }],
+        'headline-md': ['18px', { lineHeight: '24px', fontWeight: '600' }],
+        'body-lg': ['16px', { lineHeight: '24px', fontWeight: '500' }],
+        'body-md': ['16px', { lineHeight: '24px', fontWeight: '400' }],
+        'label-lg': ['16px', { lineHeight: '20px', fontWeight: '600' }],
+        'label-sm': ['13px', { lineHeight: '18px', fontWeight: '500' }],
+      },
+      minHeight: {
+        'touch': '48px',
+      },
+      minWidth: {
+        'touch': '48px',
+      }
+    },
+  },
+};
+</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=block" rel="stylesheet">
+  <style>
+    .material-symbols-outlined {
+      display: inline-block;
+      width: 1em;
+      height: 1em;
+      line-height: 1 !important;
+      overflow: hidden;
+      white-space: nowrap;
+      vertical-align: middle;
+    }
+  </style>
+</head>
+<body class="bg-wireframe-bg text-text-primary font-body min-h-[884px] antialiased flex flex-col justify-between" data-stitch-vh="min-h-[884px]===min-h-screen">
+  <!-- Mobile Frame Container -->
+  <div class="w-full max-w-[390px] mx-auto min-h-[884px] flex flex-col justify-between bg-wireframe-surface border-x border-wireframe-border shadow-sm" data-stitch-vh="min-h-[884px]===min-h-screen">
+    
+    <!-- Top System & Flow Bar -->
+    <header class="border-b border-wireframe-border px-5 pt-3 pb-3 bg-wireframe-subtle">
+      <div class="flex items-center justify-between text-text-muted text-label-sm mb-2">
+        <span class="font-semibold text-text-primary">9:41</span>
+        <div class="flex items-center gap-1.5 text-text-secondary text-sm">
+          <span class="material-symbols-outlined text-[16px]">signal_cellular_alt</span>
+          <span class="material-symbols-outlined text-[16px]">wifi</span>
+          <span class="material-symbols-outlined text-[16px]">battery_full</span>
+        </div>
+      </div>
+      <!-- Flow Step Header -->
+      <div class="flex items-center justify-between mt-1">
+        <div class="flex items-center gap-2">
+          <span class="px-2 py-0.5 bg-wireframe-border text-text-primary text-[11px] font-semibold uppercase tracking-wider rounded">Step 3 of 6</span>
+          <span class="text-text-muted text-label-sm font-medium">Planning</span>
+        </div>
+        <div class="flex items-center gap-1 text-primary text-label-sm font-semibold">
+          <span>Flow: 2 → 3 → 4</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- Header bar with back to Now -->
+    <div class="px-6 py-3 border-b border-wireframe-border bg-wireframe-surface flex items-center justify-between">
+      <div class="flex items-center gap-2">
+        <a href="../screen-2-now/Now.html" class="min-h-touch px-2 py-1 flex items-center justify-center text-text-secondary hover:text-text-primary">
+          <span class="material-symbols-outlined text-[20px]">arrow_back</span>
+        </a>
+        <h1 class="text-headline-md font-headline font-semibold text-text-primary">Calmer times today</h1>
+      </div>
+      <span class="text-label-sm px-2.5 py-1 bg-wireframe-subtle border border-wireframe-border rounded text-text-secondary font-medium">Lunch</span>
+    </div>
+
+    <!-- Main Content Area -->
+    <main class="flex-1 px-6 py-5 flex flex-col justify-between">
+      <div>
+        <div class="mb-4">
+          <p class="text-body-md text-text-secondary">Expected crowd forecast for Hostel 7 based on average student arrivals.</p>
+        </div>
+
+        <!-- 3 Cards showing time ranges and level labels -->
+        <div class="space-y-3.5">
+          <!-- Card 1: 12:15 to 12:30, Calm (Recommended, fits class break) -->
+          <div class="p-4 border-2 border-primary bg-accent-soft rounded-xl shadow-sm">
+            <div class="flex items-start justify-between mb-2">
+              <div>
+                <div class="flex items-center gap-2">
+                  <span class="text-headline-md font-bold text-text-primary font-headline">12:15 to 12:30</span>
+                  <span class="px-2 py-0.5 bg-wireframe-surface border border-wireframe-border text-text-primary text-label-sm font-semibold rounded">Calm</span>
+                </div>
+                <!-- Highlight line: Fits your 12:30 class break -->
+                <div class="flex items-center gap-1 text-primary text-label-sm font-semibold mt-1">
+                  <span class="material-symbols-outlined text-[16px]">check_circle</span>
+                  <span>Fits your 12:30 class break</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="pt-3 border-t border-blue-200 flex items-center justify-between">
+              <span class="text-label-sm text-text-muted">Wait: ~3 min</span>
+              <!-- Primary button: Remind me -->
+              <a href="../screen-4-reminder/ReminderSet.html" class="min-h-touch px-5 py-2.5 bg-primary text-on-primary text-label-lg font-semibold rounded-lg flex items-center gap-1.5 hover:bg-blue-700 active:scale-[0.99] transition shadow-sm">
+                <span class="material-symbols-outlined text-[18px]">notifications</span>
+                <span>Remind me</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- Card 2: 12:45 to 13:00, Calm -->
+          <div class="p-4 border-2 border-wireframe-border bg-wireframe-surface rounded-xl">
+            <div class="flex items-start justify-between mb-2">
+              <div>
+                <div class="flex items-center gap-2">
+                  <span class="text-headline-md font-bold text-text-primary font-headline">12:45 to 13:00</span>
+                  <span class="px-2 py-0.5 bg-wireframe-subtle border border-wireframe-border text-text-primary text-label-sm font-semibold rounded">Calm</span>
+                </div>
+                <div class="text-label-sm text-text-muted mt-1">Post-rush window</div>
+              </div>
+            </div>
+
+            <div class="pt-3 border-t border-wireframe-border flex items-center justify-between">
+              <span class="text-label-sm text-text-muted">Wait: ~4 min</span>
+              <!-- Button: Remind me -->
+              <a href="../screen-4-reminder/ReminderSet.html" class="min-h-touch px-5 py-2.5 bg-primary text-on-primary text-label-lg font-semibold rounded-lg flex items-center gap-1.5 hover:bg-blue-700 active:scale-[0.99] transition shadow-sm">
+                <span class="material-symbols-outlined text-[18px]">notifications</span>
+                <span>Remind me</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- Card 3: 13:30 to 13:45, Calm -->
+          <div class="p-4 border-2 border-wireframe-border bg-wireframe-surface rounded-xl">
+            <div class="flex items-start justify-between mb-2">
+              <div>
+                <div class="flex items-center gap-2">
+                  <span class="text-headline-md font-bold text-text-primary font-headline">13:30 to 13:45</span>
+                  <span class="px-2 py-0.5 bg-wireframe-subtle border border-wireframe-border text-text-primary text-label-sm font-semibold rounded">Calm</span>
+                </div>
+                <div class="text-label-sm text-text-muted mt-1">Late lunch quiet period</div>
+              </div>
+            </div>
+
+            <div class="pt-3 border-t border-wireframe-border flex items-center justify-between">
+              <span class="text-label-sm text-text-muted">Wait: ~2 min</span>
+              <!-- Button: Remind me -->
+              <a href="../screen-4-reminder/ReminderSet.html" class="min-h-touch px-5 py-2.5 bg-primary text-on-primary text-label-lg font-semibold rounded-lg flex items-center gap-1.5 hover:bg-blue-700 active:scale-[0.99] transition shadow-sm">
+                <span class="material-symbols-outlined text-[18px]">notifications</span>
+                <span>Remind me</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Footer Flow Hint -->
+      <div class="mt-4 pt-2 text-center">
+        <span class="text-label-sm text-text-muted">Tap &#34;Remind me&#34; to open Screen 4 (Reminder Set)</span>
+      </div>
+    </main>
+
+    <!-- Bottom Navigation (4 Tabs: Now, Best Time, Menu Vote, Feedback) -->
+    <nav class="border-t-2 border-wireframe-border bg-wireframe-surface px-2 py-1.5 grid grid-cols-4 gap-1">
+      <!-- Tab 1: Now -->
+      <a href="../screen-2-now/Now.html" class="min-h-touch flex flex-col items-center justify-center py-1 px-1 rounded text-text-secondary hover:bg-wireframe-subtle">
+        <span class="material-symbols-outlined text-[22px]">speed</span>
+        <span class="text-[12px] font-medium mt-0.5">Now</span>
+      </a>
+
+      <!-- Tab 2: Best Time (Active) -->
+      <a href="../screen-3-best-time/BestTime.html" class="min-h-touch flex flex-col items-center justify-center py-1 px-1 rounded bg-wireframe-subtle border border-wireframe-border text-text-primary">
+        <span class="material-symbols-outlined text-[22px]">schedule</span>
+        <span class="text-[12px] font-bold mt-0.5">Best Time</span>
+      </a>
+
+      <!-- Tab 3: Menu Vote -->
+      <a href="../screen-5-menu-vote/MenuVote.html" class="min-h-touch flex flex-col items-center justify-center py-1 px-1 rounded text-text-secondary hover:bg-wireframe-subtle">
+        <span class="material-symbols-outlined text-[22px]">how_to_vote</span>
+        <span class="text-[12px] font-medium mt-0.5">Menu Vote</span>
+      </a>
+
+      <!-- Tab 4: Feedback -->
+      <a href="../screen-6-feedback/Feedback.html" class="min-h-touch flex flex-col items-center justify-center py-1 px-1 rounded text-text-secondary hover:bg-wireframe-subtle">
+        <span class="material-symbols-outlined text-[22px]">rate_review</span>
+        <span class="text-[12px] font-medium mt-0.5">Feedback</span>
+      </a>
+    </nav>
+  </div>
+
+
+</body></html>
