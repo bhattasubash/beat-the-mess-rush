@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useEffect, useState } from 'react';
+import React, { createContext, useContext, useEffect, useRef, useState } from 'react';
 import {
   AppState,
   CrowdLevel,
@@ -13,12 +13,11 @@ import {
   Role,
   SlotBooking,
   StudentProfile,
-  TimeSlotData,
   WasteLogEntry,
 } from '../types';
-import { DEMO_STUDENTS, getInitialAppState } from '../data/initialData';
+import { getInitialAppState } from '../data/initialData';
 
-const LOCAL_STORAGE_KEY = 'beat_the_mess_rush_state_v2';
+const LOCAL_STORAGE_KEY = 'mess_meter_state_v1';
 
 export interface AppContextType {
   state: AppState;
@@ -49,6 +48,8 @@ export interface AppContextType {
   };
 
   // Student Actions
+  registerStudent: (profile: Omit<StudentProfile, 'id'>) => Promise<StudentProfile>;
+  toggleReminder: (messId: MessId) => void;
   setPreCommit: (dishId: string, willEat: boolean, portion: PortionSize) => void;
   bookSlot: (slotId: string) => { success: boolean; message: string; booking?: SlotBooking };
   cancelBooking: (bookingId: string) => void;
@@ -80,7 +81,8 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     try {
       const stored = localStorage.getItem(LOCAL_STORAGE_KEY);
       if (stored) {
-        return JSON.parse(stored);
+        const parsed = JSON.parse(stored) as Partial<AppState>;
+        return { ...getInitialAppState(), ...parsed };
       }
     } catch (e) {
       console.error('Failed to load from localStorage', e);
@@ -88,15 +90,50 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     return getInitialAppState();
   });
 
-  // Save to localStorage whenever state changes
+  const hydratedFromApi = useRef(false);
+
+  // Hydrate from backend API on mount
+  useEffect(() => {
+    let active = true;
+    fetch('/api/state')
+      .then((res) => (res.ok ? res.json() : null))
+      .then((serverState: AppState | null) => {
+        if (!active) return;
+        if (serverState && serverState.messes) {
+          setState((prev) => ({
+            ...prev,
+            ...serverState,
+            currentRole: prev.currentRole,
+            activeStudentScreen: prev.activeStudentScreen,
+            activeAdminScreen: prev.activeAdminScreen,
+            isDarkMode: prev.isDarkMode,
+            mobilePreviewMode: prev.mobilePreviewMode,
+          }));
+        }
+        hydratedFromApi.current = true;
+      })
+      .catch(() => {
+        hydratedFromApi.current = true;
+      });
+    return () => {
+      active = false;
+    };
+  }, []);
+
+  // Save to localStorage and sync to backend API whenever state changes
   useEffect(() => {
     try {
       localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(state));
-      // Notify other tabs or windows
       window.dispatchEvent(new Event('mess_rush_state_updated'));
     } catch (e) {
       console.error('Failed to save state to localStorage', e);
     }
+    if (!hydratedFromApi.current) return;
+    fetch('/api/state', {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(state),
+    }).catch(() => {});
   }, [state]);
 
   // Listen to cross-tab storage changes
@@ -123,7 +160,9 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
 
   // Current active student profile
   const activeStudent =
-    DEMO_STUDENTS.find((s) => s.id === state.activeStudentId) || DEMO_STUDENTS[0];
+    state.students.find((s) => s.id === state.activeStudentId) ||
+    state.students[0] ||
+    getInitialAppState().students[0];
 
   // Navigation handlers
   const setRole = (role: Role) => setState((prev) => ({ ...prev, currentRole: role }));
@@ -147,6 +186,7 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     try {
       localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(initial));
     } catch {}
+    fetch('/api/reset', { method: 'POST' }).catch(() => {});
   };
 
   // Logic: Calculate Estimated Wait Time in minutes
@@ -199,6 +239,76 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
       bgClass,
       borderClass,
     };
+  };
+
+  // Student: Register or Sign In
+  const registerStudent = async (
+    profile: Omit<StudentProfile, 'id'>
+  ): Promise<StudentProfile> => {
+    try {
+      const res = await fetch('/api/students', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(profile),
+      });
+      if (res.ok) {
+        const data = (await res.json()) as {
+          student: StudentProfile;
+          students: StudentProfile[];
+        };
+        setState((prev) => ({
+          ...prev,
+          students: data.students,
+          activeStudentId: data.student.id,
+          selectedMessId: data.student.preferredMessId,
+          currentRole: 'student',
+        }));
+        return data.student;
+      }
+    } catch {}
+
+    const normalizedRoll = profile.rollNumber.trim().toUpperCase();
+    const existing = state.students.find(
+      (s) => s.rollNumber.toUpperCase() === normalizedRoll
+    );
+    if (existing) {
+      setState((prev) => ({
+        ...prev,
+        activeStudentId: existing.id,
+        selectedMessId: existing.preferredMessId,
+        currentRole: 'student',
+      }));
+      return existing;
+    }
+
+    const newStudent: StudentProfile = {
+      ...profile,
+      id: `s-${Date.now()}`,
+      rollNumber: normalizedRoll,
+    };
+    setState((prev) => ({
+      ...prev,
+      students: [...prev.students, newStudent],
+      activeStudentId: newStudent.id,
+      selectedMessId: newStudent.preferredMessId,
+      currentRole: 'student',
+    }));
+    return newStudent;
+  };
+
+  // Student: Toggle reminder for a mess
+  const toggleReminder = (messId: MessId) => {
+    setState((prev) => {
+      const key = `${prev.activeStudentId}_${messId}`;
+      const next = !prev.reminders[key];
+      return {
+        ...prev,
+        reminders: {
+          ...prev.reminders,
+          [key]: next,
+        },
+      };
+    });
   };
 
   // Student: Pre-commit to a dish portion
@@ -356,7 +466,7 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
         [messId]: {
           ...prev.messes[messId],
           queueCount: safeCount,
-          lastUpdated: 'Just now',
+          lastUpdated: new Date().toISOString(),
         },
       },
     }));
@@ -373,7 +483,7 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
         [messId]: {
           ...prev.messes[messId],
           openCounters: safeCount,
-          lastUpdated: 'Just now',
+          lastUpdated: new Date().toISOString(),
         },
       },
     }));
@@ -389,7 +499,7 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
         [messId]: {
           ...prev.messes[messId],
           serviceRate: safeRate,
-          lastUpdated: 'Just now',
+          lastUpdated: new Date().toISOString(),
         },
       },
     }));
@@ -472,10 +582,31 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
       ...entry,
       id: `wl-${Date.now()}`,
     };
-    setState((prev) => ({
-      ...prev,
-      wasteLogs: [newEntry, ...prev.wasteLogs],
-    }));
+    const todayIso = new Date().toISOString().split('T')[0];
+    setState((prev) => {
+      const updatedStats = prev.historicalStats.map((stat, idx) => {
+        if (stat.date === todayIso || idx === prev.historicalStats.length - 1) {
+          const totalWasteKg = Math.round((stat.totalWasteKg + newEntry.wasteWeightKg) * 10) / 10;
+          const cleanRate =
+            newEntry.returnedPlates > 0
+              ? Math.round(((newEntry.returnedPlates - newEntry.platesWithWaste) / newEntry.returnedPlates) * 100)
+              : stat.cleanPlatesPercent;
+          return {
+            ...stat,
+            totalWasteKg,
+            cleanPlatesPercent: cleanRate,
+            topWastedDish: newEntry.dishName,
+            topReason: newEntry.observedReason,
+          };
+        }
+        return stat;
+      });
+      return {
+        ...prev,
+        wasteLogs: [newEntry, ...prev.wasteLogs],
+        historicalStats: updatedStats,
+      };
+    });
   };
 
   return (
@@ -496,6 +627,8 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
         resetDemoData,
         calculateWaitTime,
         calculateCrowdLevel,
+        registerStudent,
+        toggleReminder,
         setPreCommit,
         bookSlot,
         cancelBooking,

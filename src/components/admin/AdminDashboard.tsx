@@ -34,20 +34,33 @@ export function AdminDashboard() {
       ? Math.round((totalBookedSlots / totalSlotCapacity) * 100)
       : 0;
 
-  // Expected diners
-  const expectedLunchDiners = 380 + Math.round(totalBookedSlots * 0.6);
-  const expectedDinnerDiners = 350 + Math.round(totalBookedSlots * 0.4);
-  const todayTotalExpected = expectedLunchDiners + expectedDinnerDiners;
+  // Expected diners derived from actual booked slots & queue
+  const expectedLunchDiners = messSlots
+    .filter((s) => s.meal === 'Lunch')
+    .reduce((acc, s) => acc + s.bookedCount, 0);
+  const expectedDinnerDiners = messSlots
+    .filter((s) => s.meal === 'Dinner')
+    .reduce((acc, s) => acc + s.bookedCount, 0);
+  const todayTotalExpected =
+    expectedLunchDiners + expectedDinnerDiners + selectedMess.queueCount;
 
   // Waste logs for this mess
   const messWasteLogs = state.wasteLogs.filter(
     (w) => w.messId === state.adminSelectedMessId
   );
-  const todayWasteKg = messWasteLogs
-    .filter((w) => w.date === 'Today')
-    .reduce((acc, w) => acc + w.wasteWeightKg, 0);
-  const displayWasteKg = todayWasteKg > 0 ? todayWasteKg : 6.8;
-  const avgWastePerPlate = Math.round((displayWasteKg / 340) * 1000);
+  const todayWasteLogs = messWasteLogs.filter((w) => w.date === 'Today');
+  const todayWasteKg = todayWasteLogs.reduce(
+    (acc, w) => acc + w.wasteWeightKg,
+    0
+  );
+  const totalReturnedPlates = todayWasteLogs.reduce(
+    (acc, w) => acc + w.returnedPlates,
+    0
+  );
+  const avgWastePerPlate =
+    totalReturnedPlates > 0
+      ? Math.round((todayWasteKg / totalReturnedPlates) * 1000)
+      : 0;
 
   return (
     <div className="space-y-6">
@@ -138,7 +151,7 @@ export function AdminDashboard() {
             <Scale className="size-4 text-neutral-400" />
           </div>
           <div className="text-3xl font-bold tracking-tight text-neutral-900 dark:text-white tabular-nums">
-            {displayWasteKg.toFixed(1)}{' '}
+            {todayWasteKg.toFixed(1)}{' '}
             <span className="text-base font-medium text-neutral-400">kg</span>
           </div>
           <div className="pt-3 border-t border-neutral-100 dark:border-neutral-800 text-xs text-neutral-500 dark:text-neutral-400 tabular-nums">
@@ -300,16 +313,24 @@ export function AdminDashboard() {
               </tr>
             </thead>
             <tbody className="divide-y divide-neutral-100 dark:divide-neutral-800">
-              {messWasteLogs.slice(0, 5).map((wl) => (
-                <tr key={wl.id}>
-                  <td className="py-2.5 font-medium text-neutral-900 dark:text-white">
-                    {wl.dishName}
-                  </td>
-                  <td className="py-2.5 text-right font-semibold text-neutral-900 dark:text-white tabular-nums">
-                    {wl.wasteWeightKg.toFixed(1)} kg
+              {messWasteLogs.length > 0 ? (
+                messWasteLogs.slice(0, 5).map((wl) => (
+                  <tr key={wl.id}>
+                    <td className="py-2.5 font-medium text-neutral-900 dark:text-white">
+                      {wl.dishName}
+                    </td>
+                    <td className="py-2.5 text-right font-semibold text-neutral-900 dark:text-white tabular-nums">
+                      {wl.wasteWeightKg.toFixed(1)} kg
+                    </td>
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td colSpan={2} className="py-4 text-center text-neutral-500 dark:text-neutral-400">
+                    No waste entries logged yet
                   </td>
                 </tr>
-              ))}
+              )}
             </tbody>
           </table>
         </div>

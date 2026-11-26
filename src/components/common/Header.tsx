@@ -166,11 +166,11 @@ export function Header() {
       {resetConfirmOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-xs">
           <div className="relative w-full max-w-sm rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-5 shadow-2xl space-y-4">
-            <h3 className="text-sm font-bold text-slate-900 dark:text-white">
-              Reset Demo Data to Initial State?
+            <h3 className="text-sm font-bold text-neutral-900 dark:text-white">
+              Reset Operational Data?
             </h3>
-            <p className="text-xs text-slate-500 dark:text-slate-400">
-              This will restore realistic 7-day demo queues, bookings, waste logs, and menus across all 3 campus messes.
+            <p className="text-xs text-neutral-500 dark:text-neutral-400">
+              This will clear all bookings, queue counts, waste logs, and feedback back to baseline defaults.
             </p>
             <div className="flex justify-end gap-2 pt-2">
               <button

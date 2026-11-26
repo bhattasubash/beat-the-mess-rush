@@ -1,0 +1,997 @@
+{
+  "currentRole": "admin",
+  "activeStudentId": "s1",
+  "students": [
+    {
+      "id": "s1",
+      "name": "Aarav Sharma",
+      "rollNumber": "22BCE1042",
+      "hostel": "Hostel 1 (Aryabhatta)",
+      "room": "Room 304",
+      "preferredMessId": "north",
+      "dietPreference": "Veg"
+    }
+  ],
+  "selectedMessId": "north",
+  "adminSelectedMessId": "north",
+  "messes": {
+    "north": {
+      "id": "north",
+      "name": "North Mess",
+      "hostelLabel": "Hostel 1 & 2",
+      "location": "North Campus, Block A",
+      "totalCapacity": 500,
+      "openCounters": 2,
+      "totalCounters": 4,
+      "queueCount": 0,
+      "serviceRate": 2,
+      "slotCapacity": 45,
+      "lastUpdated": "2026-11-26T18:15:02.221Z",
+      "bestTimeLunch": "12:15 – 12:30 PM",
+      "bestTimeDinner": "7:30 – 7:45 PM"
+    },
+    "south": {
+      "id": "south",
+      "name": "South Mess",
+      "hostelLabel": "Hostel 3 & 4",
+      "location": "South Campus Quad",
+      "totalCapacity": 450,
+      "openCounters": 2,
+      "totalCounters": 3,
+      "queueCount": 0,
+      "serviceRate": 2,
+      "slotCapacity": 40,
+      "lastUpdated": "2026-11-26T18:15:02.221Z",
+      "bestTimeLunch": "12:15 – 12:30 PM",
+      "bestTimeDinner": "7:30 – 7:45 PM"
+    },
+    "central": {
+      "id": "central",
+      "name": "Central Dining Hall",
+      "hostelLabel": "Hostel 5 & 6",
+      "location": "Central Student Activity Center",
+      "totalCapacity": 800,
+      "openCounters": 3,
+      "totalCounters": 5,
+      "queueCount": 0,
+      "serviceRate": 2,
+      "slotCapacity": 65,
+      "lastUpdated": "2026-11-26T18:15:02.221Z",
+      "bestTimeLunch": "12:15 – 12:30 PM",
+      "bestTimeDinner": "7:30 – 7:45 PM"
+    }
+  },
+  "dishes": [
+    {
+      "id": "n-l-1",
+      "messId": "north",
+      "name": "Paneer Butter Masala",
+      "meal": "Lunch",
+      "category": "Main",
+      "diet": "Veg",
+      "calories": 290,
+      "standardPortionGrams": 180
+    },
+    {
+      "id": "n-l-2",
+      "messId": "north",
+      "name": "Yellow Dal Tadka",
+      "meal": "Lunch",
+      "category": "Dal",
+      "diet": "Vegan",
+      "calories": 150,
+      "standardPortionGrams": 150
+    },
+    {
+      "id": "n-l-3",
+      "messId": "north",
+      "name": "Steamed Basmati Rice",
+      "meal": "Lunch",
+      "category": "Rice",
+      "diet": "Vegan",
+      "calories": 210,
+      "standardPortionGrams": 200
+    },
+    {
+      "id": "n-l-4",
+      "messId": "north",
+      "name": "Butter Phulka Roti (3 pcs)",
+      "meal": "Lunch",
+      "category": "Bread",
+      "diet": "Veg",
+      "calories": 240,
+      "standardPortionGrams": 120
+    },
+    {
+      "id": "n-l-5",
+      "messId": "north",
+      "name": "Cucumber Boondi Raita",
+      "meal": "Lunch",
+      "category": "Side",
+      "diet": "Veg",
+      "calories": 95,
+      "standardPortionGrams": 100
+    },
+    {
+      "id": "n-l-6",
+      "messId": "north",
+      "name": "Gulab Jamun (2 pcs)",
+      "meal": "Lunch",
+      "category": "Sweet",
+      "diet": "Veg",
+      "calories": 280,
+      "standardPortionGrams": 80
+    },
+    {
+      "id": "n-d-1",
+      "messId": "north",
+      "name": "Kadhai Veg Delight",
+      "meal": "Dinner",
+      "category": "Main",
+      "diet": "Veg",
+      "calories": 240,
+      "standardPortionGrams": 170
+    },
+    {
+      "id": "n-d-2",
+      "messId": "north",
+      "name": "Panchmel Dal",
+      "meal": "Dinner",
+      "category": "Dal",
+      "diet": "Vegan",
+      "calories": 160,
+      "standardPortionGrams": 150
+    },
+    {
+      "id": "n-d-3",
+      "messId": "north",
+      "name": "Jeera Peas Pulao",
+      "meal": "Dinner",
+      "category": "Rice",
+      "diet": "Vegan",
+      "calories": 230,
+      "standardPortionGrams": 200
+    },
+    {
+      "id": "n-d-4",
+      "messId": "north",
+      "name": "Tandoori Roti (2 pcs)",
+      "meal": "Dinner",
+      "category": "Bread",
+      "diet": "Vegan",
+      "calories": 190,
+      "standardPortionGrams": 110
+    },
+    {
+      "id": "n-d-5",
+      "messId": "north",
+      "name": "Green Salad & Mint Chutney",
+      "meal": "Dinner",
+      "category": "Side",
+      "diet": "Vegan",
+      "calories": 45,
+      "standardPortionGrams": 80
+    },
+    {
+      "id": "n-d-6",
+      "messId": "north",
+      "name": "Moong Dal Halwa",
+      "meal": "Dinner",
+      "category": "Sweet",
+      "diet": "Veg",
+      "calories": 310,
+      "standardPortionGrams": 90
+    },
+    {
+      "id": "s-l-1",
+      "messId": "south",
+      "name": "Chole Masala (Amritsari)",
+      "meal": "Lunch",
+      "category": "Main",
+      "diet": "Vegan",
+      "calories": 280,
+      "standardPortionGrams": 180
+    },
+    {
+      "id": "s-l-2",
+      "messId": "south",
+      "name": "Gujarati Sweet Dal",
+      "meal": "Lunch",
+      "category": "Dal",
+      "diet": "Veg",
+      "calories": 170,
+      "standardPortionGrams": 150
+    },
+    {
+      "id": "s-l-3",
+      "messId": "south",
+      "name": "Ghee Rice",
+      "meal": "Lunch",
+      "category": "Rice",
+      "diet": "Veg",
+      "calories": 250,
+      "standardPortionGrams": 200
+    },
+    {
+      "id": "s-l-4",
+      "messId": "south",
+      "name": "Poori / Bhature (2 pcs)",
+      "meal": "Lunch",
+      "category": "Bread",
+      "diet": "Veg",
+      "calories": 320,
+      "standardPortionGrams": 130
+    },
+    {
+      "id": "s-l-5",
+      "messId": "south",
+      "name": "Tomato Onion Salad",
+      "meal": "Lunch",
+      "category": "Side",
+      "diet": "Vegan",
+      "calories": 40,
+      "standardPortionGrams": 80
+    },
+    {
+      "id": "s-l-6",
+      "messId": "south",
+      "name": "Rasgulla (2 pcs)",
+      "meal": "Lunch",
+      "category": "Sweet",
+      "diet": "Veg",
+      "calories": 210,
+      "standardPortionGrams": 85
+    },
+    {
+      "id": "s-d-1",
+      "messId": "south",
+      "name": "Methi Malai Matar",
+      "meal": "Dinner",
+      "category": "Main",
+      "diet": "Veg",
+      "calories": 260,
+      "standardPortionGrams": 170
+    },
+    {
+      "id": "s-d-2",
+      "messId": "south",
+      "name": "Dal Fry with Tadka",
+      "meal": "Dinner",
+      "category": "Dal",
+      "diet": "Vegan",
+      "calories": 155,
+      "standardPortionGrams": 150
+    },
+    {
+      "id": "s-d-3",
+      "messId": "south",
+      "name": "Steamed Rice",
+      "meal": "Dinner",
+      "category": "Rice",
+      "diet": "Vegan",
+      "calories": 200,
+      "standardPortionGrams": 200
+    },
+    {
+      "id": "s-d-4",
+      "messId": "south",
+      "name": "Chapati with Ghee (3 pcs)",
+      "meal": "Dinner",
+      "category": "Bread",
+      "diet": "Veg",
+      "calories": 230,
+      "standardPortionGrams": 120
+    },
+    {
+      "id": "s-d-5",
+      "messId": "south",
+      "name": "Mixed Veg Pickle & Papad",
+      "meal": "Dinner",
+      "category": "Side",
+      "diet": "Vegan",
+      "calories": 60,
+      "standardPortionGrams": 50
+    },
+    {
+      "id": "s-d-6",
+      "messId": "south",
+      "name": "Kheer (Rice Pudding)",
+      "meal": "Dinner",
+      "category": "Sweet",
+      "diet": "Veg",
+      "calories": 250,
+      "standardPortionGrams": 100
+    },
+    {
+      "id": "c-l-1",
+      "messId": "central",
+      "name": "Shahi Paneer / Chicken Curry",
+      "meal": "Lunch",
+      "category": "Main",
+      "diet": "Non-Veg",
+      "calories": 310,
+      "standardPortionGrams": 190
+    },
+    {
+      "id": "c-l-2",
+      "messId": "central",
+      "name": "Dal Makhani",
+      "meal": "Lunch",
+      "category": "Dal",
+      "diet": "Veg",
+      "calories": 240,
+      "standardPortionGrams": 160
+    },
+    {
+      "id": "c-l-3",
+      "messId": "central",
+      "name": "Veg Biryani",
+      "meal": "Lunch",
+      "category": "Rice",
+      "diet": "Veg",
+      "calories": 280,
+      "standardPortionGrams": 220
+    },
+    {
+      "id": "c-l-4",
+      "messId": "central",
+      "name": "Naan / Laccha Paratha",
+      "meal": "Lunch",
+      "category": "Bread",
+      "diet": "Veg",
+      "calories": 290,
+      "standardPortionGrams": 130
+    },
+    {
+      "id": "c-l-5",
+      "messId": "central",
+      "name": "Pineapple Raita",
+      "meal": "Lunch",
+      "category": "Side",
+      "diet": "Veg",
+      "calories": 110,
+      "standardPortionGrams": 100
+    },
+    {
+      "id": "c-l-6",
+      "messId": "central",
+      "name": "Vanilla Ice Cream Cup",
+      "meal": "Lunch",
+      "category": "Sweet",
+      "diet": "Veg",
+      "calories": 180,
+      "standardPortionGrams": 75
+    },
+    {
+      "id": "c-d-1",
+      "messId": "central",
+      "name": "Mix Veg Kolhapuri",
+      "meal": "Dinner",
+      "category": "Main",
+      "diet": "Veg",
+      "calories": 230,
+      "standardPortionGrams": 180
+    },
+    {
+      "id": "c-d-2",
+      "messId": "central",
+      "name": "Chana Dal Tadka",
+      "meal": "Dinner",
+      "category": "Dal",
+      "diet": "Vegan",
+      "calories": 165,
+      "standardPortionGrams": 150
+    },
+    {
+      "id": "c-d-3",
+      "messId": "central",
+      "name": "Lemon Rice & Curd Rice",
+      "meal": "Dinner",
+      "category": "Rice",
+      "diet": "Veg",
+      "calories": 220,
+      "standardPortionGrams": 200
+    },
+    {
+      "id": "c-d-4",
+      "messId": "central",
+      "name": "Fresh Phulka (3 pcs)",
+      "meal": "Dinner",
+      "category": "Bread",
+      "diet": "Vegan",
+      "calories": 210,
+      "standardPortionGrams": 110
+    },
+    {
+      "id": "c-d-5",
+      "messId": "central",
+      "name": "Kachumber Salad",
+      "meal": "Dinner",
+      "category": "Side",
+      "diet": "Vegan",
+      "calories": 35,
+      "standardPortionGrams": 80
+    },
+    {
+      "id": "c-d-6",
+      "messId": "central",
+      "name": "Jalebi (3 pcs)",
+      "meal": "Dinner",
+      "category": "Sweet",
+      "diet": "Veg",
+      "calories": 290,
+      "standardPortionGrams": 85
+    }
+  ],
+  "slots": [
+    {
+      "id": "north-Lunch-12:00",
+      "messId": "north",
+      "meal": "Lunch",
+      "startTime": "12:00",
+      "endTime": "12:15",
+      "capacity": 45,
+      "bookedCount": 1
+    },
+    {
+      "id": "north-Lunch-12:15",
+      "messId": "north",
+      "meal": "Lunch",
+      "startTime": "12:15",
+      "endTime": "12:30",
+      "capacity": 45,
+      "bookedCount": 0
+    },
+    {
+      "id": "north-Lunch-12:30",
+      "messId": "north",
+      "meal": "Lunch",
+      "startTime": "12:30",
+      "endTime": "12:45",
+      "capacity": 45,
+      "bookedCount": 0
+    },
+    {
+      "id": "north-Lunch-12:45",
+      "messId": "north",
+      "meal": "Lunch",
+      "startTime": "12:45",
+      "endTime": "13:00",
+      "capacity": 45,
+      "bookedCount": 0
+    },
+    {
+      "id": "north-Lunch-13:00",
+      "messId": "north",
+      "meal": "Lunch",
+      "startTime": "13:00",
+      "endTime": "13:15",
+      "capacity": 45,
+      "bookedCount": 0
+    },
+    {
+      "id": "north-Lunch-13:15",
+      "messId": "north",
+      "meal": "Lunch",
+      "startTime": "13:15",
+      "endTime": "13:30",
+      "capacity": 45,
+      "bookedCount": 0
+    },
+    {
+      "id": "north-Lunch-13:30",
+      "messId": "north",
+      "meal": "Lunch",
+      "startTime": "13:30",
+      "endTime": "13:45",
+      "capacity": 45,
+      "bookedCount": 0
+    },
+    {
+      "id": "north-Lunch-13:45",
+      "messId": "north",
+      "meal": "Lunch",
+      "startTime": "13:45",
+      "endTime": "14:00",
+      "capacity": 45,
+      "bookedCount": 0
+    },
+    {
+      "id": "north-Dinner-19:30",
+      "messId": "north",
+      "meal": "Dinner",
+      "startTime": "19:30",
+      "endTime": "19:45",
+      "capacity": 45,
+      "bookedCount": 0
+    },
+    {
+      "id": "north-Dinner-19:45",
+      "messId": "north",
+      "meal": "Dinner",
+      "startTime": "19:45",
+      "endTime": "20:00",
+      "capacity": 45,
+      "bookedCount": 0
+    },
+    {
+      "id": "north-Dinner-20:00",
+      "messId": "north",
+      "meal": "Dinner",
+      "startTime": "20:00",
+      "endTime": "20:15",
+      "capacity": 45,
+      "bookedCount": 0
+    },
+    {
+      "id": "north-Dinner-20:15",
+      "messId": "north",
+      "meal": "Dinner",
+      "startTime": "20:15",
+      "endTime": "20:30",
+      "capacity": 45,
+      "bookedCount": 0
+    },
+    {
+      "id": "north-Dinner-20:30",
+      "messId": "north",
+      "meal": "Dinner",
+      "startTime": "20:30",
+      "endTime": "20:45",
+      "capacity": 45,
+      "bookedCount": 0
+    },
+    {
+      "id": "north-Dinner-20:45",
+      "messId": "north",
+      "meal": "Dinner",
+      "startTime": "20:45",
+      "endTime": "21:00",
+      "capacity": 45,
+      "bookedCount": 0
+    },
+    {
+      "id": "north-Dinner-21:00",
+      "messId": "north",
+      "meal": "Dinner",
+      "startTime": "21:00",
+      "endTime": "21:15",
+      "capacity": 45,
+      "bookedCount": 0
+    },
+    {
+      "id": "north-Dinner-21:15",
+      "messId": "north",
+      "meal": "Dinner",
+      "startTime": "21:15",
+      "endTime": "21:30",
+      "capacity": 45,
+      "bookedCount": 0
+    },
+    {
+      "id": "south-Lunch-12:00",
+      "messId": "south",
+      "meal": "Lunch",
+      "startTime": "12:00",
+      "endTime": "12:15",
+      "capacity": 40,
+      "bookedCount": 0
+    },
+    {
+      "id": "south-Lunch-12:15",
+      "messId": "south",
+      "meal": "Lunch",
+      "startTime": "12:15",
+      "endTime": "12:30",
+      "capacity": 40,
+      "bookedCount": 0
+    },
+    {
+      "id": "south-Lunch-12:30",
+      "messId": "south",
+      "meal": "Lunch",
+      "startTime": "12:30",
+      "endTime": "12:45",
+      "capacity": 40,
+      "bookedCount": 0
+    },
+    {
+      "id": "south-Lunch-12:45",
+      "messId": "south",
+      "meal": "Lunch",
+      "startTime": "12:45",
+      "endTime": "13:00",
+      "capacity": 40,
+      "bookedCount": 0
+    },
+    {
+      "id": "south-Lunch-13:00",
+      "messId": "south",
+      "meal": "Lunch",
+      "startTime": "13:00",
+      "endTime": "13:15",
+      "capacity": 40,
+      "bookedCount": 0
+    },
+    {
+      "id": "south-Lunch-13:15",
+      "messId": "south",
+      "meal": "Lunch",
+      "startTime": "13:15",
+      "endTime": "13:30",
+      "capacity": 40,
+      "bookedCount": 0
+    },
+    {
+      "id": "south-Lunch-13:30",
+      "messId": "south",
+      "meal": "Lunch",
+      "startTime": "13:30",
+      "endTime": "13:45",
+      "capacity": 40,
+      "bookedCount": 0
+    },
+    {
+      "id": "south-Lunch-13:45",
+      "messId": "south",
+      "meal": "Lunch",
+      "startTime": "13:45",
+      "endTime": "14:00",
+      "capacity": 40,
+      "bookedCount": 0
+    },
+    {
+      "id": "south-Dinner-19:30",
+      "messId": "south",
+      "meal": "Dinner",
+      "startTime": "19:30",
+      "endTime": "19:45",
+      "capacity": 40,
+      "bookedCount": 0
+    },
+    {
+      "id": "south-Dinner-19:45",
+      "messId": "south",
+      "meal": "Dinner",
+      "startTime": "19:45",
+      "endTime": "20:00",
+      "capacity": 40,
+      "bookedCount": 0
+    },
+    {
+      "id": "south-Dinner-20:00",
+      "messId": "south",
+      "meal": "Dinner",
+      "startTime": "20:00",
+      "endTime": "20:15",
+      "capacity": 40,
+      "bookedCount": 0
+    },
+    {
+      "id": "south-Dinner-20:15",
+      "messId": "south",
+      "meal": "Dinner",
+      "startTime": "20:15",
+      "endTime": "20:30",
+      "capacity": 40,
+      "bookedCount": 0
+    },
+    {
+      "id": "south-Dinner-20:30",
+      "messId": "south",
+      "meal": "Dinner",
+      "startTime": "20:30",
+      "endTime": "20:45",
+      "capacity": 40,
+      "bookedCount": 0
+    },
+    {
+      "id": "south-Dinner-20:45",
+      "messId": "south",
+      "meal": "Dinner",
+      "startTime": "20:45",
+      "endTime": "21:00",
+      "capacity": 40,
+      "bookedCount": 0
+    },
+    {
+      "id": "south-Dinner-21:00",
+      "messId": "south",
+      "meal": "Dinner",
+      "startTime": "21:00",
+      "endTime": "21:15",
+      "capacity": 40,
+      "bookedCount": 0
+    },
+    {
+      "id": "south-Dinner-21:15",
+      "messId": "south",
+      "meal": "Dinner",
+      "startTime": "21:15",
+      "endTime": "21:30",
+      "capacity": 40,
+      "bookedCount": 0
+    },
+    {
+      "id": "central-Lunch-12:00",
+      "messId": "central",
+      "meal": "Lunch",
+      "startTime": "12:00",
+      "endTime": "12:15",
+      "capacity": 65,
+      "bookedCount": 0
+    },
+    {
+      "id": "central-Lunch-12:15",
+      "messId": "central",
+      "meal": "Lunch",
+      "startTime": "12:15",
+      "endTime": "12:30",
+      "capacity": 65,
+      "bookedCount": 0
+    },
+    {
+      "id": "central-Lunch-12:30",
+      "messId": "central",
+      "meal": "Lunch",
+      "startTime": "12:30",
+      "endTime": "12:45",
+      "capacity": 65,
+      "bookedCount": 0
+    },
+    {
+      "id": "central-Lunch-12:45",
+      "messId": "central",
+      "meal": "Lunch",
+      "startTime": "12:45",
+      "endTime": "13:00",
+      "capacity": 65,
+      "bookedCount": 0
+    },
+    {
+      "id": "central-Lunch-13:00",
+      "messId": "central",
+      "meal": "Lunch",
+      "startTime": "13:00",
+      "endTime": "13:15",
+      "capacity": 65,
+      "bookedCount": 0
+    },
+    {
+      "id": "central-Lunch-13:15",
+      "messId": "central",
+      "meal": "Lunch",
+      "startTime": "13:15",
+      "endTime": "13:30",
+      "capacity": 65,
+      "bookedCount": 0
+    },
+    {
+      "id": "central-Lunch-13:30",
+      "messId": "central",
+      "meal": "Lunch",
+      "startTime": "13:30",
+      "endTime": "13:45",
+      "capacity": 65,
+      "bookedCount": 0
+    },
+    {
+      "id": "central-Lunch-13:45",
+      "messId": "central",
+      "meal": "Lunch",
+      "startTime": "13:45",
+      "endTime": "14:00",
+      "capacity": 65,
+      "bookedCount": 0
+    },
+    {
+      "id": "central-Dinner-19:30",
+      "messId": "central",
+      "meal": "Dinner",
+      "startTime": "19:30",
+      "endTime": "19:45",
+      "capacity": 65,
+      "bookedCount": 0
+    },
+    {
+      "id": "central-Dinner-19:45",
+      "messId": "central",
+      "meal": "Dinner",
+      "startTime": "19:45",
+      "endTime": "20:00",
+      "capacity": 65,
+      "bookedCount": 0
+    },
+    {
+      "id": "central-Dinner-20:00",
+      "messId": "central",
+      "meal": "Dinner",
+      "startTime": "20:00",
+      "endTime": "20:15",
+      "capacity": 65,
+      "bookedCount": 0
+    },
+    {
+      "id": "central-Dinner-20:15",
+      "messId": "central",
+      "meal": "Dinner",
+      "startTime": "20:15",
+      "endTime": "20:30",
+      "capacity": 65,
+      "bookedCount": 0
+    },
+    {
+      "id": "central-Dinner-20:30",
+      "messId": "central",
+      "meal": "Dinner",
+      "startTime": "20:30",
+      "endTime": "20:45",
+      "capacity": 65,
+      "bookedCount": 0
+    },
+    {
+      "id": "central-Dinner-20:45",
+      "messId": "central",
+      "meal": "Dinner",
+      "startTime": "20:45",
+      "endTime": "21:00",
+      "capacity": 65,
+      "bookedCount": 0
+    },
+    {
+      "id": "central-Dinner-21:00",
+      "messId": "central",
+      "meal": "Dinner",
+      "startTime": "21:00",
+      "endTime": "21:15",
+      "capacity": 65,
+      "bookedCount": 0
+    },
+    {
+      "id": "central-Dinner-21:15",
+      "messId": "central",
+      "meal": "Dinner",
+      "startTime": "21:15",
+      "endTime": "21:30",
+      "capacity": 65,
+      "bookedCount": 0
+    }
+  ],
+  "studentBookings": [
+    {
+      "id": "b-1795716930568",
+      "bookingCode": "BMR-N-L-2153",
+      "studentId": "s1",
+      "studentName": "Aarav Sharma",
+      "rollNumber": "22BCE1042",
+      "messId": "north",
+      "meal": "Lunch",
+      "slotId": "north-Lunch-12:00",
+      "startTime": "12:00",
+      "endTime": "12:15",
+      "date": "2026-11-26",
+      "timestamp": "11:45 PM",
+      "status": "Confirmed",
+      "portions": {
+        "n-l-1": {
+          "willEat": true,
+          "portion": "Regular"
+        },
+        "n-l-2": {
+          "willEat": true,
+          "portion": "Regular"
+        },
+        "n-l-3": {
+          "willEat": true,
+          "portion": "Regular"
+        },
+        "n-l-4": {
+          "willEat": true,
+          "portion": "Regular"
+        },
+        "n-l-5": {
+          "willEat": true,
+          "portion": "Regular"
+        },
+        "n-l-6": {
+          "willEat": true,
+          "portion": "Regular"
+        }
+      }
+    }
+  ],
+  "studentPreCommits": {
+    "s1_n-l-1": {
+      "dishId": "n-l-1",
+      "willEat": true,
+      "portion": "Large"
+    }
+  },
+  "reminders": {},
+  "feedbacks": [],
+  "notices": [],
+  "wasteLogs": [],
+  "historicalStats": [
+    {
+      "date": "2026-11-20",
+      "dayLabel": "Fri, Nov 20",
+      "lunchDiners": 0,
+      "dinnerDiners": 0,
+      "totalWasteKg": 0,
+      "avgWaitMins": 0,
+      "cleanPlatesPercent": 100,
+      "topWastedDish": "None",
+      "topReason": "Other"
+    },
+    {
+      "date": "2026-11-21",
+      "dayLabel": "Sat, Nov 21",
+      "lunchDiners": 0,
+      "dinnerDiners": 0,
+      "totalWasteKg": 0,
+      "avgWaitMins": 0,
+      "cleanPlatesPercent": 100,
+      "topWastedDish": "None",
+      "topReason": "Other"
+    },
+    {
+      "date": "2026-11-22",
+      "dayLabel": "Sun, Nov 22",
+      "lunchDiners": 0,
+      "dinnerDiners": 0,
+      "totalWasteKg": 0,
+      "avgWaitMins": 0,
+      "cleanPlatesPercent": 100,
+      "topWastedDish": "None",
+      "topReason": "Other"
+    },
+    {
+      "date": "2026-11-23",
+      "dayLabel": "Mon, Nov 23",
+      "lunchDiners": 0,
+      "dinnerDiners": 0,
+      "totalWasteKg": 0,
+      "avgWaitMins": 0,
+      "cleanPlatesPercent": 100,
+      "topWastedDish": "None",
+      "topReason": "Other"
+    },
+    {
+      "date": "2026-11-24",
+      "dayLabel": "Tue, Nov 24",
+      "lunchDiners": 0,
+      "dinnerDiners": 0,
+      "totalWasteKg": 0,
+      "avgWaitMins": 0,
+      "cleanPlatesPercent": 100,
+      "topWastedDish": "None",
+      "topReason": "Other"
+    },
+    {
+      "date": "2026-11-25",
+      "dayLabel": "Wed, Nov 25",
+      "lunchDiners": 0,
+      "dinnerDiners": 0,
+      "totalWasteKg": 0,
+      "avgWaitMins": 0,
+      "cleanPlatesPercent": 100,
+      "topWastedDish": "None",
+      "topReason": "Other"
+    },
+    {
+      "date": "2026-11-26",
+      "dayLabel": "Today (Nov 26)",
+      "lunchDiners": 0,
+      "dinnerDiners": 0,
+      "totalWasteKg": 0,
+      "avgWaitMins": 0,
+      "cleanPlatesPercent": 100,
+      "topWastedDish": "None",
+      "topReason": "Other"
+    }
+  ],
+  "activeStudentScreen": "menu",
+  "activeAdminScreen": "forecast",
+  "isDarkMode": false,
+  "mobilePreviewMode": false
+}

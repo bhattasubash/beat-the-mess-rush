@@ -138,6 +138,7 @@ export interface StudentProfile {
 export interface AppState {
   currentRole: Role;
   activeStudentId: string;
+  students: StudentProfile[];
   selectedMessId: MessId;
   adminSelectedMessId: MessId;
   messes: Record<MessId, MessInfo>;
@@ -145,6 +146,7 @@ export interface AppState {
   slots: TimeSlotData[];
   studentBookings: SlotBooking[];
   studentPreCommits: Record<string, StudentPreCommit>; // key: `${studentId}_${dishId}`
+  reminders: Record<string, boolean>; // key: `${studentId}_${messId}`
   feedbacks: FeedbackRecord[];
   notices: MessNotice[];
   wasteLogs: WasteLogEntry[];
