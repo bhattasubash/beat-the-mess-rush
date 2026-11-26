@@ -110,27 +110,21 @@ export function StudentSlots() {
       {/* Active Booking Banner if already booked */}
       {currentBooking && (
         <BlurFade delay={0.1}>
-          <div className="rounded-2xl bg-gradient-to-r from-blue-600 to-indigo-600 p-4 text-white shadow-md">
+          <div className="rounded-xl border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 p-4 text-neutral-900 dark:text-white">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
               <div className="flex items-start gap-3">
-                <div className="size-10 rounded-xl bg-white/20 flex items-center justify-center shrink-0">
-                  <CalendarCheck className="size-5 text-white" />
+                <div className="size-10 rounded-lg bg-blue-50 dark:bg-blue-950/40 flex items-center justify-center shrink-0">
+                  <CalendarCheck className="size-5 text-blue-700 dark:text-blue-400" />
                 </div>
                 <div>
-                  <div className="flex items-center gap-2">
-                    <span className="text-xs font-bold uppercase tracking-wider text-blue-200">
-                      Your Confirmed Slot for {selectedMeal}
-                    </span>
-                    <span className="rounded-full bg-emerald-500 px-2 py-0.5 text-[10px] font-extrabold uppercase">
-                      Active
-                    </span>
+                  <div className="text-xs font-medium text-neutral-500 dark:text-neutral-400">
+                    Confirmed slot for {selectedMeal}
                   </div>
-                  <div className="text-lg font-black mt-0.5">
+                  <div className="text-lg font-bold tabular-nums mt-0.5">
                     {currentBooking.startTime} – {currentBooking.endTime}
                   </div>
-                  <div className="text-xs text-blue-100 flex items-center gap-2 mt-0.5">
-                    <span>Token: {currentBooking.bookingCode}</span>
-                    <span>•</span>
+                  <div className="text-xs text-neutral-500 dark:text-neutral-400 flex items-center gap-2 mt-0.5 tabular-nums">
+                    <span>{currentBooking.bookingCode}</span>
                     <span>{state.messes[currentBooking.messId]?.name}</span>
                   </div>
                 </div>

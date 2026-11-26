@@ -10,13 +10,26 @@ import {
   UtensilsCrossed,
 } from 'lucide-react';
 import { useApp } from '../../context/AppContext';
+import { AppState } from '../../types';
 import { DemoLoginModal } from './DemoLoginModal';
+
+const STUDENT_NAV_ITEMS: {
+  id: AppState['activeStudentScreen'];
+  label: string;
+}[] = [
+  { id: 'home', label: 'Overview' },
+  { id: 'menu', label: 'Menu' },
+  { id: 'slots', label: 'Slots' },
+  { id: 'feedback', label: 'Feedback' },
+  { id: 'history', label: 'History' },
+];
 
 export function Header() {
   const {
     state,
     activeStudent,
     setRole,
+    setActiveStudentScreen,
     toggleDarkMode,
     toggleMobilePreview,
     resetDemoData,
@@ -27,38 +40,52 @@ export function Header() {
 
   return (
     <>
-      <header className="sticky top-0 z-30 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md border-b border-slate-200/80 dark:border-slate-800/80 px-4 sm:px-6 py-3 transition-colors">
-        <div className="max-w-7xl mx-auto flex items-center justify-between gap-3">
+      <header className="sticky top-0 z-30 bg-white/95 dark:bg-neutral-900/95 backdrop-blur-sm border-b border-neutral-200 dark:border-neutral-800 px-4 sm:px-6 h-14 flex items-center transition-colors">
+        <div className="max-w-7xl w-full mx-auto flex items-center justify-between gap-4">
           {/* Logo & App Title */}
-          <div className="flex items-center gap-3">
-            <div className="size-9 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-600 text-white flex items-center justify-center shadow-md shadow-blue-500/20">
-              <UtensilsCrossed className="size-5" />
-            </div>
-            <div>
-              <div className="flex items-center gap-2">
-                <span className="font-black text-base tracking-tight text-slate-900 dark:text-white">
-                  Beat the Mess Rush
-                </span>
-                <span className="hidden sm:inline-block rounded-md bg-amber-100 dark:bg-amber-950/80 text-amber-800 dark:text-amber-300 text-[10px] font-bold px-2 py-0.5 border border-amber-300 dark:border-amber-800 uppercase tracking-wider">
-                  Demo Prototype
-                </span>
+          <div className="flex items-center gap-6 min-w-0">
+            <div className="flex items-center gap-2.5 shrink-0">
+              <div className="size-8 rounded-lg bg-blue-700 text-white flex items-center justify-center">
+                <UtensilsCrossed className="size-4" />
               </div>
-              <div className="hidden sm:block text-[11px] text-slate-500 dark:text-slate-400">
-                University Hostel Queue & Plate-Waste Reduction
-              </div>
+              <span className="font-bold text-sm sm:text-base tracking-tight text-neutral-900 dark:text-white truncate">
+                Mess Meter
+              </span>
             </div>
+
+            {/* Desktop Student Navigation (hidden on mobile or in phone simulator) */}
+            {state.currentRole === 'student' && !state.mobilePreviewMode && (
+              <nav className="hidden md:flex items-center gap-1" aria-label="Student navigation">
+                {STUDENT_NAV_ITEMS.map((item) => {
+                  const isActive = state.activeStudentScreen === item.id;
+                  return (
+                    <button
+                      key={item.id}
+                      onClick={() => setActiveStudentScreen(item.id)}
+                      className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors ${
+                        isActive
+                          ? 'bg-neutral-100 dark:bg-neutral-800 text-neutral-900 dark:text-white'
+                          : 'text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white hover:bg-neutral-50 dark:hover:bg-neutral-800/50'
+                      }`}
+                    >
+                      {item.label}
+                    </button>
+                  );
+                })}
+              </nav>
+            )}
           </div>
 
           {/* Controls: Role Switcher, Persona, Tools */}
-          <div className="flex items-center gap-2 sm:gap-3">
-            {/* Quick Role Switcher Pill */}
-            <div className="flex items-center rounded-xl bg-slate-100 dark:bg-slate-800 p-1 text-xs font-bold">
+          <div className="flex items-center gap-2 shrink-0">
+            {/* Quick Role Switcher */}
+            <div className="flex items-center rounded-lg bg-neutral-100 dark:bg-neutral-800 p-0.5 text-xs font-semibold">
               <button
                 onClick={() => setRole('student')}
-                className={`flex items-center gap-1.5 rounded-lg px-2.5 py-1.5 transition-all ${
+                className={`flex items-center gap-1.5 rounded-md px-2.5 py-1 transition-colors ${
                   state.currentRole === 'student'
-                    ? 'bg-blue-600 text-white shadow-xs'
-                    : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+                    ? 'bg-white dark:bg-neutral-700 text-neutral-900 dark:text-white shadow-xs'
+                    : 'text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white'
                 }`}
               >
                 <GraduationCap className="size-3.5" />
@@ -66,10 +93,10 @@ export function Header() {
               </button>
               <button
                 onClick={() => setRole('admin')}
-                className={`flex items-center gap-1.5 rounded-lg px-2.5 py-1.5 transition-all ${
+                className={`flex items-center gap-1.5 rounded-md px-2.5 py-1 transition-colors ${
                   state.currentRole === 'admin'
-                    ? 'bg-emerald-600 text-white shadow-xs'
-                    : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+                    ? 'bg-white dark:bg-neutral-700 text-neutral-900 dark:text-white shadow-xs'
+                    : 'text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white'
                 }`}
               >
                 <ChefHat className="size-3.5" />
@@ -80,15 +107,12 @@ export function Header() {
             {/* Persona Switch Button */}
             <button
               onClick={() => setLoginModalOpen(true)}
-              className="flex items-center gap-1.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-2.5 py-1.5 text-xs font-semibold text-slate-700 dark:text-slate-200 hover:border-slate-400 transition-colors"
-              title="Switch demo student or admin"
+              className="flex items-center gap-1.5 rounded-lg border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-800 px-2.5 py-1.5 text-xs font-medium text-neutral-700 dark:text-neutral-200 hover:border-neutral-300 dark:hover:border-neutral-600 transition-colors"
+              title="Switch student or admin"
             >
-              <User className="size-3.5 text-slate-400" />
-              <span className="hidden md:inline max-w-[110px] truncate">
+              <User className="size-3.5 text-neutral-400" />
+              <span className="hidden lg:inline max-w-[110px] truncate">
                 {state.currentRole === 'student' ? activeStudent.name : 'Vikram Rao'}
-              </span>
-              <span className="text-[10px] text-blue-600 dark:text-blue-400 font-bold">
-                Switch
               </span>
             </button>
 
@@ -96,12 +120,12 @@ export function Header() {
             {state.currentRole === 'student' && (
               <button
                 onClick={toggleMobilePreview}
-                className={`hidden md:flex items-center gap-1 p-2 rounded-xl border transition-colors ${
+                className={`hidden md:flex items-center p-1.5 rounded-lg border transition-colors ${
                   state.mobilePreviewMode
-                    ? 'bg-blue-50 text-blue-600 border-blue-300 dark:bg-blue-950 dark:text-blue-300 dark:border-blue-700'
-                    : 'border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:text-slate-900'
+                    ? 'bg-blue-50 text-blue-700 border-blue-200 dark:bg-blue-950 dark:text-blue-300 dark:border-blue-800'
+                    : 'border-neutral-200 dark:border-neutral-700 text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white'
                 }`}
-                title="Toggle Phone Simulator Frame"
+                title="Toggle mobile preview"
               >
                 <Smartphone className="size-4" />
               </button>
@@ -110,21 +134,21 @@ export function Header() {
             {/* Dark Mode Toggle */}
             <button
               onClick={toggleDarkMode}
-              className="p-2 rounded-xl border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors"
-              title="Toggle Dark / Light Mode"
+              className="p-1.5 rounded-lg border border-neutral-200 dark:border-neutral-700 text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white transition-colors"
+              title="Toggle theme"
             >
               {state.isDarkMode ? (
-                <Sun className="size-4 text-amber-400" />
+                <Sun className="size-4" />
               ) : (
-                <Moon className="size-4 text-slate-600" />
+                <Moon className="size-4" />
               )}
             </button>
 
             {/* Reset Demo Data Button */}
             <button
               onClick={() => setResetConfirmOpen(true)}
-              className="p-2 rounded-xl border border-slate-200 dark:border-slate-700 text-slate-400 hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
-              title="Reset Demo Data"
+              className="p-1.5 rounded-lg border border-neutral-200 dark:border-neutral-700 text-neutral-400 hover:text-red-600 dark:hover:text-red-400 transition-colors"
+              title="Reset data"
             >
               <RefreshCw className="size-4" />
             </button>

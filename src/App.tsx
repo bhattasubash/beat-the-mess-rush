@@ -7,7 +7,7 @@ function MainAppShell() {
   const { state } = useApp();
 
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 flex flex-col transition-colors selection:bg-blue-500 selection:text-white">
+    <div className="min-h-screen bg-[#F7F7F5] dark:bg-neutral-950 text-neutral-900 dark:text-neutral-100 flex flex-col transition-colors selection:bg-blue-700 selection:text-white">
       {/* Universal Sticky Header */}
       <Header />
 

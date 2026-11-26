@@ -54,7 +54,7 @@ export const INITIAL_MESSES: Record<MessId, MessInfo> = {
     queueCount: 16, // 16 / (2 * 2.0) = 4 min -> Low
     serviceRate: 2.0,
     slotCapacity: 45,
-    lastUpdated: 'Just now (12:28 PM)',
+    lastUpdated: 'Updated just now',
     bestTimeLunch: '1:15 PM – 1:45 PM',
     bestTimeDinner: '8:45 PM – 9:15 PM',
   },
@@ -69,7 +69,7 @@ export const INITIAL_MESSES: Record<MessId, MessInfo> = {
     queueCount: 28, // 28 / (2 * 2.0) = 7.0 min -> Medium
     serviceRate: 2.0,
     slotCapacity: 40,
-    lastUpdated: '1 min ago',
+    lastUpdated: 'Updated 1 min ago',
     bestTimeLunch: '12:00 PM – 12:30 PM',
     bestTimeDinner: '7:30 PM – 8:00 PM',
   },
@@ -84,7 +84,7 @@ export const INITIAL_MESSES: Record<MessId, MessInfo> = {
     queueCount: 56, // 56 / (2 * 2.0) = 14 min -> High
     serviceRate: 2.0,
     slotCapacity: 65,
-    lastUpdated: '2 mins ago',
+    lastUpdated: 'Updated 2 min ago',
     bestTimeLunch: '1:30 PM – 2:00 PM',
     bestTimeDinner: '9:00 PM – 9:30 PM',
   },

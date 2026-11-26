@@ -44,17 +44,9 @@ export function StudentHistory() {
       <BlurFade delay={0.05}>
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
           <div>
-            <div className="flex items-center gap-2">
-              <span className="inline-flex items-center gap-1 rounded-full bg-indigo-100 dark:bg-indigo-950/60 px-2.5 py-0.5 text-xs font-semibold text-indigo-700 dark:text-indigo-300">
-                <History className="size-3" /> Dining Record
-              </span>
-            </div>
-            <h1 className="text-2xl font-black tracking-tight text-slate-900 dark:text-white mt-1">
-              My History & Impact
+            <h1 className="text-xl font-bold tracking-tight text-neutral-900 dark:text-white">
+              My History &amp; Impact
             </h1>
-            <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
-              Review your past dining slots, queue time saved, and dish feedback records.
-            </p>
           </div>
         </div>
       </BlurFade>
@@ -62,29 +54,29 @@ export function StudentHistory() {
       {/* Impact Stats Banner */}
       <BlurFade delay={0.1}>
         <div className="grid grid-cols-3 gap-3">
-          <div className="rounded-2xl border border-blue-200/80 bg-blue-50/70 dark:border-blue-900/40 dark:bg-blue-950/20 p-3.5 text-center">
-            <div className="text-xl sm:text-2xl font-black text-blue-600 dark:text-blue-400">
+          <div className="rounded-xl border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 p-4 text-center">
+            <div className="text-xl sm:text-2xl font-bold text-neutral-900 dark:text-white tabular-nums">
               {studentBookings.length}
             </div>
-            <div className="text-[10px] sm:text-xs font-semibold text-slate-600 dark:text-slate-400 mt-0.5">
+            <div className="text-xs text-neutral-500 dark:text-neutral-400 mt-0.5">
               Slots Booked
             </div>
           </div>
 
-          <div className="rounded-2xl border border-emerald-200/80 bg-emerald-50/70 dark:border-emerald-900/40 dark:bg-emerald-950/20 p-3.5 text-center">
-            <div className="text-xl sm:text-2xl font-black text-emerald-600 dark:text-emerald-400">
+          <div className="rounded-xl border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 p-4 text-center">
+            <div className="text-xl sm:text-2xl font-bold text-neutral-900 dark:text-white tabular-nums">
               {cleanPlateCount}
             </div>
-            <div className="text-[10px] sm:text-xs font-semibold text-slate-600 dark:text-slate-400 mt-0.5">
-              Zero-Waste Plates
+            <div className="text-xs text-neutral-500 dark:text-neutral-400 mt-0.5">
+              Clean Plates
             </div>
           </div>
 
-          <div className="rounded-2xl border border-indigo-200/80 bg-indigo-50/70 dark:border-indigo-900/40 dark:bg-indigo-950/20 p-3.5 text-center">
-            <div className="text-xl sm:text-2xl font-black text-indigo-600 dark:text-indigo-400">
-              ~{estimatedKgSaved} kg
+          <div className="rounded-xl border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 p-4 text-center">
+            <div className="text-xl sm:text-2xl font-bold text-neutral-900 dark:text-white tabular-nums">
+              {estimatedKgSaved} kg
             </div>
-            <div className="text-[10px] sm:text-xs font-semibold text-slate-600 dark:text-slate-400 mt-0.5">
+            <div className="text-xs text-neutral-500 dark:text-neutral-400 mt-0.5">
               Food Saved
             </div>
           </div>

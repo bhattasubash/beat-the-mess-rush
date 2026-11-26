@@ -227,10 +227,10 @@ export function AdminQueueControl() {
         <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5 shadow-xs space-y-3">
           <div className="flex items-center justify-between">
             <h2 className="text-sm font-bold text-slate-900 dark:text-white flex items-center gap-2">
-              <Clock className="size-4 text-indigo-600" />
+              <Clock className="size-4 text-blue-700" />
               3. Default 15-Minute Slot Capacity
             </h2>
-            <span className="font-mono text-xs font-bold text-indigo-600 dark:text-indigo-400">
+            <span className="font-mono text-xs font-bold text-blue-700 dark:text-blue-400 tabular-nums">
               {mess.slotCapacity} students / slot
             </span>
           </div>
@@ -247,7 +247,7 @@ export function AdminQueueControl() {
                   onClick={() => updateSlotCapacity(messId, cap)}
                   className={`py-2 rounded-xl text-xs font-bold border transition-all ${
                     isSelected
-                      ? 'bg-indigo-600 border-indigo-600 text-white shadow-xs'
+                      ? 'bg-blue-700 border-blue-700 text-white shadow-xs'
                       : 'bg-slate-50 dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300'
                   }`}
                 >

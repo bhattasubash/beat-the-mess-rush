@@ -38,7 +38,15 @@ export interface AppContextType {
 
   // Calculators
   calculateWaitTime: (messId: MessId) => number;
-  calculateCrowdLevel: (messId: MessId) => { level: CrowdLevel; waitMinutes: number; colorClass: string; bgClass: string; borderClass: string };
+  calculateCrowdLevel: (messId: MessId) => {
+    level: CrowdLevel;
+    label: 'Calm' | 'Busy' | 'Packed';
+    dotClass: string;
+    waitMinutes: number;
+    colorClass: string;
+    bgClass: string;
+    borderClass: string;
+  };
 
   // Student Actions
   setPreCommit: (dishId: string, willEat: boolean, portion: PortionSize) => void;
@@ -160,24 +168,32 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
   const calculateCrowdLevel = (messId: MessId) => {
     const wait = calculateWaitTime(messId);
     let level: CrowdLevel = 'Low';
-    let colorClass = 'text-emerald-600 dark:text-emerald-400';
+    let label: 'Calm' | 'Busy' | 'Packed' = 'Calm';
+    let dotClass = 'bg-emerald-600';
+    let colorClass = 'text-emerald-700 dark:text-emerald-400';
     let bgClass = 'bg-emerald-50 text-emerald-700 border-emerald-200 dark:bg-emerald-950/40 dark:text-emerald-300 dark:border-emerald-800';
-    let borderClass = 'border-emerald-500';
+    let borderClass = 'border-emerald-600';
 
     if (wait >= 10) {
       level = 'High';
-      colorClass = 'text-rose-600 dark:text-rose-400';
-      bgClass = 'bg-rose-50 text-rose-700 border-rose-200 dark:bg-rose-950/40 dark:text-rose-300 dark:border-rose-800';
-      borderClass = 'border-rose-500';
+      label = 'Packed';
+      dotClass = 'bg-red-600';
+      colorClass = 'text-red-700 dark:text-red-400';
+      bgClass = 'bg-red-50 text-red-700 border-red-200 dark:bg-red-950/40 dark:text-red-300 dark:border-red-800';
+      borderClass = 'border-red-600';
     } else if (wait >= 5) {
       level = 'Medium';
-      colorClass = 'text-amber-600 dark:text-amber-400';
+      label = 'Busy';
+      dotClass = 'bg-amber-500';
+      colorClass = 'text-amber-700 dark:text-amber-400';
       bgClass = 'bg-amber-50 text-amber-700 border-amber-200 dark:bg-amber-950/40 dark:text-amber-300 dark:border-amber-800';
       borderClass = 'border-amber-500';
     }
 
     return {
       level,
+      label,
+      dotClass,
       waitMinutes: wait,
       colorClass,
       bgClass,

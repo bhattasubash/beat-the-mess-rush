@@ -30,20 +30,20 @@ export function StudentView() {
     <div className="min-h-full">
       {state.mobilePreviewMode ? (
         <div className="flex justify-center py-6 px-4">
-          <div className="w-full max-w-[420px] rounded-[42px] border-[10px] border-slate-800 dark:border-slate-700 bg-white dark:bg-slate-900 shadow-2xl overflow-hidden min-h-[780px] relative flex flex-col">
+          <div className="w-full max-w-[420px] rounded-[36px] border-[8px] border-neutral-800 dark:border-neutral-700 bg-[#F7F7F5] dark:bg-neutral-950 shadow-2xl overflow-hidden h-[780px] relative flex flex-col">
             {/* Phone Notch/Speaker */}
-            <div className="h-5 bg-slate-800 dark:bg-slate-700 flex justify-center items-center">
-              <div className="w-20 h-3 bg-black rounded-full" />
+            <div className="h-5 bg-neutral-800 dark:bg-neutral-700 flex justify-center items-center shrink-0">
+              <div className="w-20 h-2.5 bg-black rounded-full" />
             </div>
             {/* App content inside phone */}
-            <div className="flex-1 overflow-y-auto p-4 pt-3 pb-24">
+            <div className="flex-1 overflow-y-auto p-4">
               {renderScreen()}
             </div>
-            <StudentBottomNav />
+            <StudentBottomNav inPhoneFrame />
           </div>
         </div>
       ) : (
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 py-6 pb-24">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 py-6 pb-20 md:pb-8">
           {renderScreen()}
           <StudentBottomNav />
         </div>

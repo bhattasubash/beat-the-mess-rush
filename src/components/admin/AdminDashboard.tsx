@@ -1,33 +1,25 @@
 import {
-  AlertTriangle,
   ArrowRight,
-  BarChart2,
-  CheckCircle2,
   Clock,
   Minus,
   Plus,
   Scale,
-  TrendingDown,
   Users,
   Utensils,
 } from 'lucide-react';
 import { useApp } from '../../context/AppContext';
 import { MessId } from '../../types';
-import { NumberTicker } from '../magicui/NumberTicker';
 
 export function AdminDashboard() {
   const {
     state,
-    calculateWaitTime,
     calculateCrowdLevel,
     updateQueueCount,
-    toggleCounter,
     setActiveAdminScreen,
-    setAdminSelectedMessId,
   } = useApp();
 
   const selectedMess = state.messes[state.adminSelectedMessId];
-  const { level, waitMinutes, bgClass, colorClass } = calculateCrowdLevel(
+  const { label, dotClass, waitMinutes } = calculateCrowdLevel(
     state.adminSelectedMessId
   );
 
@@ -37,9 +29,12 @@ export function AdminDashboard() {
   );
   const totalBookedSlots = messSlots.reduce((acc, s) => acc + s.bookedCount, 0);
   const totalSlotCapacity = messSlots.reduce((acc, s) => acc + s.capacity, 0);
-  const slotFillRate = totalSlotCapacity > 0 ? Math.round((totalBookedSlots / totalSlotCapacity) * 100) : 0;
+  const slotFillRate =
+    totalSlotCapacity > 0
+      ? Math.round((totalBookedSlots / totalSlotCapacity) * 100)
+      : 0;
 
-  // Expected diners (estimated based on pre-commits + booked slots + baseline walk-ins)
+  // Expected diners
   const expectedLunchDiners = 380 + Math.round(totalBookedSlots * 0.6);
   const expectedDinnerDiners = 350 + Math.round(totalBookedSlots * 0.4);
   const todayTotalExpected = expectedLunchDiners + expectedDinnerDiners;
@@ -51,255 +46,179 @@ export function AdminDashboard() {
   const todayWasteKg = messWasteLogs
     .filter((w) => w.date === 'Today')
     .reduce((acc, w) => acc + w.wasteWeightKg, 0);
-  const avgWastePerPlate = todayWasteKg > 0 ? Math.round((todayWasteKg / 340) * 1000) : 24; // in grams
+  const displayWasteKg = todayWasteKg > 0 ? todayWasteKg : 6.8;
+  const avgWastePerPlate = Math.round((displayWasteKg / 340) * 1000);
 
   return (
     <div className="space-y-6">
-      {/* Top Banner / Title */}
+      {/* Top Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
         <div>
-          <div className="flex items-center gap-2 text-xs font-semibold text-slate-500">
-            <span>Operations Dashboard</span>
-            <span>•</span>
-            <span className="text-blue-600 dark:text-blue-400 font-bold">
-              {selectedMess.name}
-            </span>
-          </div>
-          <h1 className="text-2xl font-black text-slate-900 dark:text-white mt-0.5">
-            Mess Rush & Waste Command Center
+          <span className="text-xs font-medium text-neutral-500 dark:text-neutral-400">
+            {selectedMess.name}
+          </span>
+          <h1 className="text-xl font-bold tracking-tight text-neutral-900 dark:text-white mt-0.5">
+            Operations Dashboard
           </h1>
         </div>
 
         <div className="flex items-center gap-2">
           <button
             onClick={() => setActiveAdminScreen('queue')}
-            className="rounded-xl bg-blue-600 text-white px-3.5 py-2 text-xs font-bold hover:bg-blue-700 transition-colors shadow-xs flex items-center gap-1.5"
+            className="rounded-lg bg-blue-700 hover:bg-blue-800 text-white px-3.5 py-2 text-xs font-semibold transition-colors flex items-center gap-1.5"
           >
-            <Clock className="size-3.5" /> Adjust Live Queue
+            <Clock className="size-3.5" />
+            Adjust queue
           </button>
           <button
             onClick={() => setActiveAdminScreen('forecast')}
-            className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 px-3.5 py-2 text-xs font-bold hover:bg-slate-50 transition-colors"
+            className="rounded-lg border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-neutral-700 dark:text-neutral-200 px-3.5 py-2 text-xs font-semibold hover:bg-neutral-50 dark:hover:bg-neutral-800 transition-colors"
           >
-            Kitchen Prep Sheet →
+            Prep sheet
           </button>
         </div>
       </div>
 
-      {/* Metric Cards with NumberTicker */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        {/* Metric 1: Current Queue & Wait */}
-        <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 shadow-xs">
-          <div className="flex items-center justify-between text-xs text-slate-500">
-            <span className="font-semibold uppercase tracking-wider text-[11px]">
-              Live Queue & Wait
-            </span>
-            <Users className="size-4 text-blue-500" />
+      {/* Top 4 KPI Cards */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 items-stretch">
+        {/* KPI 1: Queue & Wait */}
+        <div className="rounded-xl border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 p-5 flex flex-col justify-between gap-4">
+          <div className="flex items-center justify-between text-xs text-neutral-500 dark:text-neutral-400">
+            <span className="font-medium">Current Queue</span>
+            <Users className="size-4 text-neutral-400" />
           </div>
-          <div className="mt-2 flex items-baseline gap-2">
-            <span className="text-3xl font-black text-slate-900 dark:text-white tabular-nums">
-              <NumberTicker value={selectedMess.queueCount} />
-            </span>
-            <span className="text-xs text-slate-400">students in line</span>
+          <div className="text-3xl font-bold tracking-tight text-neutral-900 dark:text-white tabular-nums">
+            {selectedMess.queueCount}
           </div>
-          <div className="mt-3 flex items-center justify-between pt-2 border-t border-slate-100 dark:border-slate-800">
-            <span className={`text-xs font-bold px-2 py-0.5 rounded-full border ${bgClass}`}>
-              Crowd: {level}
+          <div className="pt-3 border-t border-neutral-100 dark:border-neutral-800 flex items-center justify-between text-xs text-neutral-500 dark:text-neutral-400 tabular-nums">
+            <span className="inline-flex items-center gap-1.5 text-neutral-700 dark:text-neutral-300 font-medium">
+              <span className={`size-2 rounded-full ${dotClass}`} />
+              {label}
             </span>
-            <span className="text-xs font-mono font-bold text-slate-700 dark:text-slate-300">
-              ~<NumberTicker value={waitMinutes} decimalPlaces={1} /> min wait
-            </span>
+            <span>~{waitMinutes.toFixed(1)} min wait</span>
           </div>
         </div>
 
-        {/* Metric 2: Today's Expected Diners */}
-        <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 shadow-xs">
-          <div className="flex items-center justify-between text-xs text-slate-500">
-            <span className="font-semibold uppercase tracking-wider text-[11px]">
-              Expected Diners Today
-            </span>
-            <Utensils className="size-4 text-indigo-500" />
+        {/* KPI 2: Expected Diners */}
+        <div className="rounded-xl border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 p-5 flex flex-col justify-between gap-4">
+          <div className="flex items-center justify-between text-xs text-neutral-500 dark:text-neutral-400">
+            <span className="font-medium">Expected Diners</span>
+            <Utensils className="size-4 text-neutral-400" />
           </div>
-          <div className="mt-2 flex items-baseline gap-2">
-            <span className="text-3xl font-black text-slate-900 dark:text-white tabular-nums">
-              <NumberTicker value={todayTotalExpected} />
-            </span>
-            <span className="text-xs text-slate-400">students</span>
+          <div className="text-3xl font-bold tracking-tight text-neutral-900 dark:text-white tabular-nums">
+            {todayTotalExpected.toLocaleString()}
           </div>
-          <div className="mt-3 flex items-center justify-between pt-2 border-t border-slate-100 dark:border-slate-800 text-xs text-slate-500">
-            <span>Lunch: ~{expectedLunchDiners}</span>
-            <span>Dinner: ~{expectedDinnerDiners}</span>
+          <div className="pt-3 border-t border-neutral-100 dark:border-neutral-800 flex items-center justify-between text-xs text-neutral-500 dark:text-neutral-400 tabular-nums">
+            <span>Lunch {expectedLunchDiners}</span>
+            <span>Dinner {expectedDinnerDiners}</span>
           </div>
         </div>
 
-        {/* Metric 3: Booked Slots & Fill Rate */}
-        <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 shadow-xs">
-          <div className="flex items-center justify-between text-xs text-slate-500">
-            <span className="font-semibold uppercase tracking-wider text-[11px]">
-              15-Min Booked Slots
-            </span>
-            <Clock className="size-4 text-emerald-500" />
+        {/* KPI 3: Booked Slots */}
+        <div className="rounded-xl border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 p-5 flex flex-col justify-between gap-4">
+          <div className="flex items-center justify-between text-xs text-neutral-500 dark:text-neutral-400">
+            <span className="font-medium">Booked Slots</span>
+            <Clock className="size-4 text-neutral-400" />
           </div>
-          <div className="mt-2 flex items-baseline gap-2">
-            <span className="text-3xl font-black text-slate-900 dark:text-white tabular-nums">
-              <NumberTicker value={totalBookedSlots} />
+          <div className="text-3xl font-bold tracking-tight text-neutral-900 dark:text-white tabular-nums">
+            {totalBookedSlots}{' '}
+            <span className="text-base font-medium text-neutral-400">
+              / {totalSlotCapacity}
             </span>
-            <span className="text-xs text-slate-400">/ {totalSlotCapacity} capacity</span>
           </div>
-          <div className="mt-3 flex items-center justify-between pt-2 border-t border-slate-100 dark:border-slate-800 text-xs">
-            <span className="text-slate-500">Slot Fill Rate:</span>
-            <span className="font-bold text-emerald-600 dark:text-emerald-400">
-              {slotFillRate}% Allocated
-            </span>
+          <div className="pt-3 border-t border-neutral-100 dark:border-neutral-800 text-xs text-neutral-500 dark:text-neutral-400 tabular-nums">
+            {slotFillRate}% filled
           </div>
         </div>
 
-        {/* Metric 4: Plate Waste Summary */}
-        <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 shadow-xs">
-          <div className="flex items-center justify-between text-xs text-slate-500">
-            <span className="font-semibold uppercase tracking-wider text-[11px]">
-              Today's Leftover Waste
-            </span>
-            <Scale className="size-4 text-amber-500" />
+        {/* KPI 4: Leftover Waste */}
+        <div className="rounded-xl border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 p-5 flex flex-col justify-between gap-4">
+          <div className="flex items-center justify-between text-xs text-neutral-500 dark:text-neutral-400">
+            <span className="font-medium">Today&apos;s Waste</span>
+            <Scale className="size-4 text-neutral-400" />
           </div>
-          <div className="mt-2 flex items-baseline gap-2">
-            <span className="text-3xl font-black text-emerald-600 dark:text-emerald-400 tabular-nums">
-              <NumberTicker value={todayWasteKg > 0 ? todayWasteKg : 6.8} decimalPlaces={1} />
-            </span>
-            <span className="text-xs text-slate-400">kg recorded</span>
+          <div className="text-3xl font-bold tracking-tight text-neutral-900 dark:text-white tabular-nums">
+            {displayWasteKg.toFixed(1)}{' '}
+            <span className="text-base font-medium text-neutral-400">kg</span>
           </div>
-          <div className="mt-3 flex items-center justify-between pt-2 border-t border-slate-100 dark:border-slate-800 text-xs">
-            <span className="text-slate-500">Avg per plate:</span>
-            <span className="font-bold text-slate-800 dark:text-slate-200">
-              ~{avgWastePerPlate}g / plate
-            </span>
+          <div className="pt-3 border-t border-neutral-100 dark:border-neutral-800 text-xs text-neutral-500 dark:text-neutral-400 tabular-nums">
+            {avgWastePerPlate}g per plate
           </div>
         </div>
       </div>
 
-      {/* All 3 Messes Live Status Comparison Table */}
-      <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5 shadow-xs">
+      {/* Live Wait & Queue Overview Table */}
+      <div className="rounded-xl border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 p-5">
         <div className="flex items-center justify-between mb-4">
-          <div>
-            <h2 className="text-sm font-bold text-slate-900 dark:text-white">
-              Campus Mess Network — Live Wait & Queue Overview
-            </h2>
-            <p className="text-xs text-slate-500 dark:text-slate-400">
-              Formula: People in queue ÷ (Open counters × {selectedMess.serviceRate} students/min)
-            </p>
-          </div>
+          <h2 className="text-sm font-semibold text-neutral-900 dark:text-white">
+            Live Wait &amp; Queue Overview
+          </h2>
           <button
             onClick={() => setActiveAdminScreen('queue')}
-            className="text-xs font-bold text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-1"
+            className="text-xs font-semibold text-blue-700 dark:text-blue-400 hover:underline inline-flex items-center gap-1"
           >
-            Manage Counters & Rate <ArrowRight className="size-3" />
+            Manage counters <ArrowRight className="size-3" />
           </button>
         </div>
 
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs">
             <thead>
-              <tr className="border-b border-slate-100 dark:border-slate-800 text-slate-400 uppercase text-[10px] font-bold">
-                <th className="pb-3">Mess Hall</th>
-                <th className="pb-3">Queue Count</th>
-                <th className="pb-3">Open Counters</th>
-                <th className="pb-3">Service Rate</th>
-                <th className="pb-3">Estimated Wait</th>
-                <th className="pb-3">Crowd Status</th>
-                <th className="pb-3 text-right">Quick Queue Adjust</th>
+              <tr className="border-b border-neutral-200 dark:border-neutral-800 text-neutral-500 dark:text-neutral-400 font-medium">
+                <th className="pb-2.5">Mess Hall</th>
+                <th className="pb-2.5">Counters</th>
+                <th className="pb-2.5">Estimated Wait</th>
+                <th className="pb-2.5">Status</th>
+                <th className="pb-2.5 text-right">Queue Headcount</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
+            <tbody className="divide-y divide-neutral-100 dark:divide-neutral-800">
               {(['north', 'south', 'central'] as MessId[]).map((mId) => {
                 const m = state.messes[mId];
                 const crowd = calculateCrowdLevel(mId);
-                const isCurrent = state.adminSelectedMessId === mId;
 
                 return (
                   <tr
                     key={mId}
-                    className={`hover:bg-slate-50/60 dark:hover:bg-slate-800/40 transition-colors ${
-                      isCurrent ? 'bg-blue-50/40 dark:bg-blue-950/20' : ''
-                    }`}
+                    className="hover:bg-neutral-50/80 dark:hover:bg-neutral-800/40 transition-colors"
                   >
-                    <td className="py-3 font-bold text-slate-900 dark:text-white">
-                      <div className="flex items-center gap-2">
-                        <span>{m.name}</span>
-                        {isCurrent && (
-                          <span className="text-[10px] bg-blue-100 text-blue-700 dark:bg-blue-900 dark:text-blue-200 px-1.5 py-0.2 rounded font-semibold">
-                            Active
-                          </span>
-                        )}
-                      </div>
-                      <div className="text-[10px] font-normal text-slate-400">
-                        {m.hostelLabel}
-                      </div>
+                    <td className="py-3 font-semibold text-neutral-900 dark:text-white">
+                      {m.name}
                     </td>
 
-                    <td className="py-3 font-mono font-bold text-slate-800 dark:text-slate-200">
-                      <NumberTicker value={m.queueCount} /> students
+                    <td className="py-3 text-neutral-600 dark:text-neutral-300 tabular-nums">
+                      {m.openCounters} / {m.totalCounters}
+                    </td>
+
+                    <td className="py-3 font-semibold text-neutral-900 dark:text-white tabular-nums">
+                      {crowd.waitMinutes.toFixed(1)} min
                     </td>
 
                     <td className="py-3">
-                      <span className="font-semibold text-slate-700 dark:text-slate-300">
-                        {m.openCounters} / {m.totalCounters} Open
-                      </span>
-                    </td>
-
-                    <td className="py-3 font-mono text-slate-600 dark:text-slate-400">
-                      {m.serviceRate} / min
-                    </td>
-
-                    <td className="py-3 font-bold font-mono text-slate-900 dark:text-white">
-                      <NumberTicker value={crowd.waitMinutes} decimalPlaces={1} /> min
-                    </td>
-
-                    <td className="py-3">
-                      <span
-                        className={`inline-flex items-center gap-1 text-[11px] font-bold px-2 py-0.5 rounded-full border ${crowd.bgClass}`}
-                      >
-                        <span
-                          className={`size-1.5 rounded-full ${
-                            crowd.level === 'Low'
-                              ? 'bg-emerald-500'
-                              : crowd.level === 'Medium'
-                              ? 'bg-amber-500'
-                              : 'bg-rose-500'
-                          }`}
-                        />
-                        {crowd.level}
+                      <span className="inline-flex items-center gap-1.5 text-xs font-medium text-neutral-700 dark:text-neutral-200">
+                        <span className={`size-2 rounded-full ${crowd.dotClass}`} />
+                        {crowd.label}
                       </span>
                     </td>
 
                     <td className="py-3 text-right">
-                      <div className="inline-flex items-center gap-1">
+                      <div className="inline-flex items-center rounded-lg border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900">
                         <button
-                          onClick={() => updateQueueCount(mId, m.queueCount - 5)}
-                          className="size-7 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 flex items-center justify-center font-bold text-xs"
-                          title="Subtract 5"
+                          onClick={() => updateQueueCount(mId, Math.max(0, m.queueCount - 1))}
+                          className="size-7 flex items-center justify-center text-neutral-600 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-800 rounded-l-lg transition-colors"
+                          aria-label={`Decrease ${m.name} queue`}
                         >
-                          -5
+                          <Minus className="size-3.5" />
                         </button>
-                        <button
-                          onClick={() => updateQueueCount(mId, m.queueCount - 1)}
-                          className="size-7 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 flex items-center justify-center font-bold text-xs"
-                          title="Subtract 1"
-                        >
-                          <Minus className="size-3" />
-                        </button>
+                        <span className="w-10 text-center font-semibold text-neutral-900 dark:text-white tabular-nums">
+                          {m.queueCount}
+                        </span>
                         <button
                           onClick={() => updateQueueCount(mId, m.queueCount + 1)}
-                          className="size-7 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 flex items-center justify-center font-bold text-xs"
-                          title="Add 1"
+                          className="size-7 flex items-center justify-center text-neutral-600 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-800 rounded-r-lg transition-colors"
+                          aria-label={`Increase ${m.name} queue`}
                         >
-                          <Plus className="size-3" />
-                        </button>
-                        <button
-                          onClick={() => updateQueueCount(mId, m.queueCount + 5)}
-                          className="size-7 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 flex items-center justify-center font-bold text-xs"
-                          title="Add 5"
-                        >
-                          +5
+                          <Plus className="size-3.5" />
                         </button>
                       </div>
                     </td>
@@ -311,45 +230,44 @@ export function AdminDashboard() {
         </div>
       </div>
 
-      {/* Two Column Layout: Slot Peak Times & Waste Summary */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
-        {/* Slot Demand Summary */}
-        <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5 shadow-xs">
-          <div className="flex items-center justify-between mb-3">
-            <h3 className="text-sm font-bold text-slate-900 dark:text-white">
-              Slot Capacity Utilization ({selectedMess.name})
+      {/* Bottom Split: Slot Utilization & Plate Waste Log */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 items-stretch">
+        {/* Slot Utilization */}
+        <div className="rounded-xl border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 p-5 flex flex-col justify-between">
+          <div className="flex items-center justify-between mb-4">
+            <h3 className="text-sm font-semibold text-neutral-900 dark:text-white">
+              Slot Utilization
             </h3>
             <button
               onClick={() => setActiveAdminScreen('forecast')}
-              className="text-xs font-semibold text-blue-600 dark:text-blue-400 hover:underline"
+              className="text-xs font-medium text-neutral-500 hover:text-neutral-900 dark:hover:text-white"
             >
-              Detailed Breakdown →
+              View all
             </button>
           </div>
 
-          <div className="space-y-2.5">
+          <div className="space-y-3">
             {messSlots.slice(0, 5).map((slot) => {
               const pct = Math.round((slot.bookedCount / slot.capacity) * 100);
               const isFull = slot.bookedCount >= slot.capacity;
               return (
-                <div key={slot.id} className="text-xs space-y-1">
-                  <div className="flex items-center justify-between">
-                    <span className="font-semibold text-slate-700 dark:text-slate-300">
+                <div key={slot.id} className="text-xs space-y-1.5">
+                  <div className="flex items-center justify-between tabular-nums">
+                    <span className="font-medium text-neutral-800 dark:text-neutral-200">
                       {slot.meal} {slot.startTime}–{slot.endTime}
                     </span>
-                    <span className="font-mono text-slate-500">
-                      {slot.bookedCount} / {slot.capacity} booked{' '}
-                      {isFull && <span className="font-bold text-rose-500">(FULL)</span>}
+                    <span className="text-neutral-500 dark:text-neutral-400">
+                      {slot.bookedCount} / {slot.capacity}
                     </span>
                   </div>
-                  <div className="h-2 w-full rounded-full bg-slate-100 dark:bg-slate-800 overflow-hidden">
+                  <div className="h-1.5 w-full rounded-full bg-neutral-100 dark:bg-neutral-800 overflow-hidden">
                     <div
                       className={`h-full rounded-full ${
                         isFull
-                          ? 'bg-rose-500'
+                          ? 'bg-red-600'
                           : pct >= 75
                           ? 'bg-amber-500'
-                          : 'bg-blue-600'
+                          : 'bg-blue-700'
                       }`}
                       style={{ width: `${pct}%` }}
                     />
@@ -360,42 +278,40 @@ export function AdminDashboard() {
           </div>
         </div>
 
-        {/* Recent Waste Observations */}
-        <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5 shadow-xs">
-          <div className="flex items-center justify-between mb-3">
-            <h3 className="text-sm font-bold text-slate-900 dark:text-white">
-              Recent Plate Waste Observations
+        {/* Plate Waste Log (Two-column table) */}
+        <div className="rounded-xl border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 p-5 flex flex-col justify-between">
+          <div className="flex items-center justify-between mb-4">
+            <h3 className="text-sm font-semibold text-neutral-900 dark:text-white">
+              Plate Waste Log
             </h3>
             <button
               onClick={() => setActiveAdminScreen('waste')}
-              className="text-xs font-semibold text-blue-600 dark:text-blue-400 hover:underline"
+              className="text-xs font-medium text-neutral-500 hover:text-neutral-900 dark:hover:text-white"
             >
-              Log New Waste Entry →
+              Log entry
             </button>
           </div>
 
-          <div className="divide-y divide-slate-100 dark:divide-slate-800 text-xs">
-            {messWasteLogs.slice(0, 4).map((wl) => (
-              <div key={wl.id} className="py-2.5 flex items-center justify-between">
-                <div>
-                  <div className="font-bold text-slate-800 dark:text-slate-200">
-                    {wl.dishName} ({wl.meal})
-                  </div>
-                  <div className="text-[11px] text-slate-400">
-                    {wl.date} • Observed reason: <span className="text-amber-600 font-semibold">{wl.observedReason}</span>
-                  </div>
-                </div>
-                <div className="text-right">
-                  <div className="font-bold font-mono text-rose-600 dark:text-rose-400">
-                    {wl.wasteWeightKg} kg waste
-                  </div>
-                  <div className="text-[10px] text-slate-400">
-                    {wl.platesWithWaste} / {wl.returnedPlates} plates
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
+          <table className="w-full text-xs">
+            <thead>
+              <tr className="border-b border-neutral-200 dark:border-neutral-800 text-neutral-500 dark:text-neutral-400 font-medium">
+                <th className="pb-2 text-left">Dish</th>
+                <th className="pb-2 text-right">Waste</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-neutral-100 dark:divide-neutral-800">
+              {messWasteLogs.slice(0, 5).map((wl) => (
+                <tr key={wl.id}>
+                  <td className="py-2.5 font-medium text-neutral-900 dark:text-white">
+                    {wl.dishName}
+                  </td>
+                  <td className="py-2.5 text-right font-semibold text-neutral-900 dark:text-white tabular-nums">
+                    {wl.wasteWeightKg.toFixed(1)} kg
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
       </div>
     </div>

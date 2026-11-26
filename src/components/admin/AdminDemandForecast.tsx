@@ -159,9 +159,9 @@ export function AdminDemandForecast() {
             <span className="font-semibold uppercase tracking-wider text-[11px]">
               Recommended Food Batch
             </span>
-            <ChefHat className="size-4 text-indigo-500" />
+            <ChefHat className="size-4 text-neutral-400" />
           </div>
-          <div className="mt-2 text-3xl font-black text-indigo-600 dark:text-indigo-400">
+          <div className="mt-2 text-3xl font-bold text-neutral-900 dark:text-white tabular-nums">
             {totalFoodPrepKg} kg
           </div>
           <div className="mt-2 text-xs text-slate-400">
@@ -235,7 +235,7 @@ export function AdminDemandForecast() {
                     <span className="font-bold text-slate-900 dark:text-white">{item.regularPortions}</span> plates
                   </td>
                   <td className="py-3 font-mono text-slate-700 dark:text-slate-300">
-                    <span className="font-bold text-indigo-600 dark:text-indigo-400">{item.largePortions}</span> plates
+                    <span className="font-bold text-neutral-900 dark:text-white tabular-nums">{item.largePortions}</span> plates
                   </td>
                   <td className="py-3 font-mono font-bold text-slate-900 dark:text-white text-sm">
                     {item.totalWeightKg} kg

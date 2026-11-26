@@ -38,7 +38,7 @@ export function QrPassModal({ booking, onClose }: QrPassModalProps) {
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-200">
       <div className="relative w-full max-w-sm overflow-hidden rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-2xl">
         {/* Header Ribbon */}
-        <div className="bg-gradient-to-r from-blue-600 to-indigo-600 px-6 py-4 text-white">
+        <div className="bg-blue-700 px-6 py-4 text-white">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
               <span className="flex size-7 items-center justify-center rounded-full bg-white/20">
