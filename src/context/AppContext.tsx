@@ -91,9 +91,16 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
   });
 
   const hydratedFromApi = useRef(false);
+  const isStaticHost =
+    typeof window !== 'undefined' &&
+    window.location.hostname.endsWith('github.io');
 
-  // Hydrate from backend API on mount
+  // Hydrate from backend API on mount (skipped on static GitHub Pages)
   useEffect(() => {
+    if (isStaticHost) {
+      hydratedFromApi.current = true;
+      return;
+    }
     let active = true;
     fetch('/api/state')
       .then((res) => (res.ok ? res.json() : null))
@@ -118,7 +125,7 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     return () => {
       active = false;
     };
-  }, []);
+  }, [isStaticHost]);
 
   // Save to localStorage and sync to backend API whenever state changes
   useEffect(() => {
@@ -128,13 +135,13 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     } catch (e) {
       console.error('Failed to save state to localStorage', e);
     }
-    if (!hydratedFromApi.current) return;
+    if (!hydratedFromApi.current || isStaticHost) return;
     fetch('/api/state', {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(state),
     }).catch(() => {});
-  }, [state]);
+  }, [state, isStaticHost]);
 
   // Listen to cross-tab storage changes
   useEffect(() => {
